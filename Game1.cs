@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using csproject2024.src;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace csproject2024
 {
@@ -8,26 +10,39 @@ namespace csproject2024
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private SpriteBatch _UISpriteBatch;
+        private GameManager _gameManager;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
+            Globals.GraphicsDevice = GraphicsDevice;
+            Globals.Content = Content;
+
+            _gameManager = new();
+            _gameManager.init();
+
+            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.SynchronizeWithVerticalRetrace = false;
+            _graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+            _graphics.ApplyChanges();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.SpriteBatch = _spriteBatch;
 
-            // TODO: use this.Content to load your game content here
+            _UISpriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.UISpriteBatch = _UISpriteBatch;
         }
 
         protected override void Update(GameTime gameTime)
@@ -35,17 +50,17 @@ namespace csproject2024
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            _gameManager.update();
+            InputManager.Update(Keyboard.GetState(),Mouse.GetState());
 
+            Globals.Update(gameTime);
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            _gameManager.draw();
             base.Draw(gameTime);
         }
     }
