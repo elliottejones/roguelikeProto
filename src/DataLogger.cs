@@ -90,7 +90,7 @@ namespace csproject2024.src
         public void Update()
         {
             //#####################
-            bool doLogging = true;
+            bool doLogging = false;
             //#####################
 
             if (doLogging)

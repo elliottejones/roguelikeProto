@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
+using System.Diagnostics;
+using System.IO;
 
 namespace csproject2024.src
 {
@@ -42,11 +44,11 @@ namespace csproject2024.src
 
         public Texture uibit;
 
+        private List<string> textLines;
+
         public UIElement(float layerHeight, Vector2 position, string name, Color backgroundColor, float backgroundTransparency = 0f, Color borderColor = new Color(), float borderTransparency = 0f, int borderWidth = 0, int width = 10, int height = 10, string text = null)
         {
             this.name = name;
-
-            this.text = "abdbadbadb";
 
             this.visible = true;
             this.active = true;
@@ -64,22 +66,63 @@ namespace csproject2024.src
             this.width = width;
             this.height = height;
 
+            this.text = text;
+
             uibit = new(Globals.Content.Load<Texture2D>("uibit"), Vector2.Zero, "uibit", false);
 
             bounds = new(new((int)position.X,(int)position.Y), new(width,height));
 
             arielFont = Globals.Content.Load<SpriteFont>("arielFont");
 
+            if (text != null )
+            {
+                textLines = CalculateTextLines();
+            }
         }
 
-        public void CalculateTextLines()
+        public List<string> CalculateTextLines()
         {
-            Vector2 stringSize = arielFont.MeasureString(text);
 
-            int lineCount = width / (int)Math.Floor(stringSize.X);
+            // line wrappign works. must incorporate scale next.
 
-            //TODO: Finish line wrapping
+            List<string> lines = new List<string>();
+            float lineWidth = 0;
+            string[] words = text.Split(' ');
+            float spaceWidth = arielFont.MeasureString(" ").X;
+            string line = "";
 
+            foreach (string word in words)
+            {
+                float wordWidth = arielFont.MeasureString(word).X;
+
+                if (lineWidth < width - wordWidth - 3)
+                {
+                    line += " " + word;
+
+                    Console.WriteLine("added " + word + " to line");
+
+                    lineWidth += wordWidth + spaceWidth;
+
+                    Console.WriteLine("linewidth now = " + lineWidth);
+
+                }
+                else
+                {
+                    lines.Add(line);
+
+                    Console.WriteLine("first line = " + line);
+
+                    line = "";
+                    lineWidth = 0;
+                }
+            }
+
+            if (line.Length > 0)
+            {
+                lines.Add(line);
+            }
+
+            return lines;
         }
 
         public void Update()
@@ -98,8 +141,18 @@ namespace csproject2024.src
 
         public void Draw()
         {
-            Globals.UISpriteBatch.DrawString(arielFont, text, position, Color.Black, 0f, Vector2.Zero, new Vector2(2,2), SpriteEffects.None, layerHeight - 0.1f);
+            if (text != null)
+            {
+                float yOffset = 0;
 
+                foreach (string line in textLines)
+                {
+                    Globals.UISpriteBatch.DrawString(arielFont, line, position + new Vector2(0,yOffset), Color.Black, 0f, Vector2.Zero, new Vector2(1, 1), SpriteEffects.None, layerHeight - 0.1f);
+                    yOffset += arielFont.LineSpacing + 5;
+                }
+                
+            }
+            
             Globals.UISpriteBatch.Draw(uibit.texture, position, null, backgroundColor, 0f, Vector2.Zero, new Vector2(width, height), SpriteEffects.None, layerHeight);
 
             //Drawing borders
