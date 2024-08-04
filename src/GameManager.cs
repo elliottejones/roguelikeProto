@@ -32,6 +32,9 @@ namespace csproject2024.src
             Level.Update(Player,Camera);
             Camera.Follow(Player.position, Globals.GraphicsDevice.Viewport);
             DataLogger.Update();
+
+            ScreenGUI.UpdateText("position", ("X: " + ((int)Player.tilePosition.X).ToString()) +  " Y: " + ((int)Player.tilePosition.Y).ToString());
+
         }
 
         public void draw()

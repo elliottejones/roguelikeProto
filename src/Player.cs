@@ -12,16 +12,20 @@ namespace csproject2024.src
         public Tile standingTile;
         private Level level;
         private float baseSpeed;
-        private Texture2D texture;
         private float speed;
 
+        private Animation animation;
+
+        private Texture texture;
 
         public Player(Vector2 startPosition, int baseSpeed, Level level)
         {
             this.level = level;
             position = startPosition;
             this.baseSpeed = baseSpeed;
-            texture = Globals.Content.Load<Texture2D>("character");
+
+            texture = new(Globals.Content.Load<Texture2D>("character"), Vector2.Zero, "playerSpriteSheet");
+            animation = new(10, "playerAnimation", texture, new Point(16, 32));
         }
 
         public void Update()
@@ -48,11 +52,49 @@ namespace csproject2024.src
             }
 
             tilePosition = position / 16;
+
+            animation.FPS = 10 * (int)Math.Round(speed);
+
+            if (InputManager.MoveVector == Vector2.Zero)
+            {
+                animation.resetAnimation();
+                animation.pauseAnimation();
+            }
+            else
+            {
+                animation.resumeAnimation();
+            }
+
+            animation.Update();
+
+            switch (InputManager.InputOrientation)
+            {
+                case InputManager.Orientation.up:
+                    {
+                        animation.playAnimation(2);
+                        break;
+                    }
+                case InputManager.Orientation.down:
+                    {
+                        animation.playAnimation(0);
+                        break;
+                    }
+                case InputManager.Orientation.left:
+                    {
+                        animation.playAnimation(3);
+                        break;
+                    }
+                case InputManager.Orientation.right:
+                    {
+                        animation.playAnimation(1);
+                        break;
+                    }
+            }
         }
 
         public void Draw()
         {
-            Globals.SpriteBatch.Draw(texture, position, null, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), Vector2.One, SpriteEffects.None, 0.2f);
+            animation.DrawAnimation(position);
         }
     }
 }

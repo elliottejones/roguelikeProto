@@ -68,13 +68,13 @@ namespace csproject2024.src
 
             this.text = text;
 
-            uibit = new(Globals.Content.Load<Texture2D>("uibit"), Vector2.Zero, "uibit", false);
+            uibit = new(Globals.Content.Load<Texture2D>("uibit"), Vector2.Zero, "uibit");
 
             bounds = new(new((int)position.X,(int)position.Y), new(width,height));
 
             arielFont = Globals.Content.Load<SpriteFont>("arielFont");
 
-            if (text != null )
+            if (text != null)
             {
                 textLines = CalculateTextLines();
             }
@@ -98,20 +98,11 @@ namespace csproject2024.src
                 if (lineWidth < width - wordWidth - 3)
                 {
                     line += " " + word;
-
-                    Console.WriteLine("added " + word + " to line");
-
                     lineWidth += wordWidth + spaceWidth;
-
-                    Console.WriteLine("linewidth now = " + lineWidth);
-
                 }
                 else
                 {
                     lines.Add(line);
-
-                    Console.WriteLine("first line = " + line);
-
                     line = "";
                     lineWidth = 0;
                 }
@@ -127,15 +118,9 @@ namespace csproject2024.src
 
         public void Update()
         {
-            if (bounds.Contains(InputManager.MousePosition))
+            if (text != null)
             {
-                hovering?.Invoke(hovering, EventArgs.Empty);
-                Console.WriteLine("hovered");
-
-                if (InputManager.LeftMouseDown)
-                {
-                    clicked?.Invoke(clicked, EventArgs.Empty);
-                }
+                textLines = CalculateTextLines();
             }
         }
 

@@ -10,11 +10,16 @@ namespace csproject2024.src
 {
     internal class Crosshair
     {
-        Texture texture = new(Globals.Content.Load<Texture2D>("crosshair"), new Vector2(11, 10), "crosshair", false);
+        private Texture2D texture;
+
+        public Crosshair()
+        {
+           texture = Globals.Content.Load<Texture2D>("crosshair");
+        }
 
         public void Draw(Vector2 mousePosition)
         {
-            Globals.UISpriteBatch.Draw(texture.texture, mousePosition, null, Color.White, 0f, texture.origin, 1f, SpriteEffects.None, 0.01f);
+            Globals.UISpriteBatch.Draw(texture, mousePosition, null, Color.White, 0f, new Vector2(11, 10), 1f, SpriteEffects.None, 0.01f);
         }
     }
 }

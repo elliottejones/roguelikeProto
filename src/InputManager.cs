@@ -10,7 +10,15 @@ namespace csproject2024.src
 {
     internal class InputManager
     {
+
+        public enum Orientation
+        {
+            down, right, up, left
+        }
+
         public static Vector2 MoveVector = Vector2.Zero;
+
+        public static Orientation InputOrientation;
 
         public static Point MousePosition = Point.Zero;
 
@@ -57,10 +65,26 @@ namespace csproject2024.src
 
             Vector2 output = Vector2.Zero;
 
-            if (kb.IsKeyDown(Keys.W)) output += new Vector2(0, -1);
-            if (kb.IsKeyDown(Keys.A)) output += new Vector2(-1, 0);
-            if (kb.IsKeyDown(Keys.S)) output += new Vector2(0, 1);
-            if (kb.IsKeyDown(Keys.D)) output += new Vector2(1, 0);
+            if (kb.IsKeyDown(Keys.W))
+            {
+                InputOrientation = Orientation.up;
+                output += new Vector2(0, -1);
+            }
+            if (kb.IsKeyDown(Keys.A))
+            {
+                InputOrientation = Orientation.left;
+                output += new Vector2(-1, 0);
+            }
+            if (kb.IsKeyDown(Keys.S))
+            {
+                InputOrientation = Orientation.down;
+                output += new Vector2(0, 1);
+            }
+            if (kb.IsKeyDown(Keys.D))
+            {
+                InputOrientation = Orientation.right;
+                output += new Vector2(1, 0);
+            }
 
             if (output.LengthSquared() > 0)
             {

@@ -15,10 +15,6 @@ namespace csproject2024.src
 {
     internal class TileGenerator
     {
-
-        private FastNoise noise;
-        private Random random = new Random();
-
         Texture2D grassOutline;
         Texture2D sandOutline;
 
@@ -27,6 +23,9 @@ namespace csproject2024.src
         private Texture sand;
         private Texture tree1;
         private Texture tree2;
+
+        private FastNoise noise;
+        private Random random = new Random();
 
         public TileGenerator()
         {
@@ -39,14 +38,14 @@ namespace csproject2024.src
 
             grassOutline = Globals.Content.Load<Texture2D>("grassoutline");
             sandOutline = Globals.Content.Load<Texture2D>("sandoutline");
-            grass = new(Globals.Content.Load<Texture2D>("grass"), Vector2.Zero, "grass", false);
+            grass = new(Globals.Content.Load<Texture2D>("grass"), Vector2.Zero, "grass");
 
-            water = new(Globals.Content.Load<Texture2D>("water"), Vector2.Zero, "water", true, Globals.Content.Load<Texture2D>("water2"));
+            water = new(Globals.Content.Load<Texture2D>("water"), Vector2.Zero, "water");
 
-            sand = new(Globals.Content.Load<Texture2D>("beach"), Vector2.Zero, "sand", false);
+            sand = new(Globals.Content.Load<Texture2D>("beach"), Vector2.Zero, "sand");
 
-            tree1 = new(Globals.Content.Load<Texture2D>("tree"), new Vector2(16, 77), "tree1", false);
-            tree2 = new(Globals.Content.Load<Texture2D>("tree2"), new Vector2(16, 65), "tree2", false);
+            tree1 = new(Globals.Content.Load<Texture2D>("tree"), new Vector2(16, 77), "tree1");
+            tree2 = new(Globals.Content.Load<Texture2D>("tree2"), new Vector2(16, 65), "tree2");
         }
 
         public Tile GenerateNewTile(Vector2 tileCoordinates)
