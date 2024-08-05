@@ -13,7 +13,7 @@ namespace csproject2024.src
 {
     abstract class UIElement
     {
-        SpriteFont arielFont;
+        protected SpriteFont arielFont;
 
         public event EventHandler clicked;
         public event EventHandler hovering;
@@ -41,12 +41,13 @@ namespace csproject2024.src
         public Rectangle bounds;
 
         public string text;
+        public Color textColor;
 
         public Texture uibit;
 
-        private List<string> textLines;
+        protected List<string> textLines;
 
-        public UIElement(float layerHeight, Vector2 position, string name, Color backgroundColor, float backgroundTransparency = 0f, Color borderColor = new Color(), float borderTransparency = 0f, int borderWidth = 0, int width = 10, int height = 10, string text = null)
+        public UIElement(float layerHeight, Vector2 position, string name, Color backgroundColor, float backgroundTransparency = 0f, Color borderColor = new Color(), float borderTransparency = 0f, int borderWidth = 0, int width = 10, int height = 10, string text = null, Color textColor = new Color())
         {
             this.name = name;
 
@@ -67,6 +68,7 @@ namespace csproject2024.src
             this.height = height;
 
             this.text = text;
+            this.textColor = textColor;
 
             uibit = new(Globals.Content.Load<Texture2D>("uibit"), Vector2.Zero, "uibit");
 
@@ -80,31 +82,29 @@ namespace csproject2024.src
             }
         }
 
-        public List<string> CalculateTextLines()
+        public List<string> CalculateTextLines(float scale = 1f)
         {
-
-            // line wrappign works. must incorporate scale next.
-
             List<string> lines = new List<string>();
             float lineWidth = 0;
             string[] words = text.Split(' ');
-            float spaceWidth = arielFont.MeasureString(" ").X;
+            float spaceWidth = arielFont.MeasureString(" ").X * scale;
             string line = "";
 
             foreach (string word in words)
             {
-                float wordWidth = arielFont.MeasureString(word).X;
+                float wordWidth = arielFont.MeasureString(word).X * scale;
 
-                if (lineWidth < width - wordWidth - 3)
+                if (lineWidth + wordWidth <= width - 3)
                 {
-                    line += " " + word;
-                    lineWidth += wordWidth + spaceWidth;
+                    if (line.Length > 0) line += " ";
+                    line += word;
+                    lineWidth += (line.Length > 0 ? spaceWidth : 0) + wordWidth;
                 }
                 else
                 {
-                    lines.Add(line);
-                    line = "";
-                    lineWidth = 0;
+                    if (line.Length > 0) lines.Add(line);
+                    line = word;
+                    lineWidth = wordWidth;
                 }
             }
 
@@ -124,7 +124,7 @@ namespace csproject2024.src
             }
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
             if (text != null)
             {
@@ -132,7 +132,7 @@ namespace csproject2024.src
 
                 foreach (string line in textLines)
                 {
-                    Globals.UISpriteBatch.DrawString(arielFont, line, position + new Vector2(0,yOffset), Color.Black, 0f, Vector2.Zero, new Vector2(1, 1), SpriteEffects.None, layerHeight - 0.1f);
+                    Globals.UISpriteBatch.DrawString(arielFont, line, position + new Vector2(0,yOffset), textColor, 0f, Vector2.Zero, new Vector2(1, 1), SpriteEffects.None, layerHeight - 0.1f);
                     yOffset += arielFont.LineSpacing + 5;
                 }
                 

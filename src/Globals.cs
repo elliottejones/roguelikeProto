@@ -11,7 +11,7 @@ namespace csproject2024.src
     {
         public static SpriteBatch SpriteBatch { get; set; }
         public static SpriteBatch UISpriteBatch { get; set; }
-
+        public static AudioManager AudioManager { get; set; }
         public static GraphicsDevice GraphicsDevice { get; set; }
         public static ContentManager Content { get; set; }
         public static TileGenerator levelGenerator { get; set; }

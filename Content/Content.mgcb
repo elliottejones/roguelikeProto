@@ -56,6 +56,12 @@
 /processorParam:TextureFormat=Color
 /build:crosshair.png
 
+#begin footstepGrass.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:footstepGrass.wav
+
 #begin grass.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -18,7 +18,11 @@ namespace csproject2024.src
 
         public ScreenGUI()
         {
-            UIElements.Add("position",new Frame(0.5f, new(0,0), "position", width: 300, height: 100, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3));
+            UIElements.Add("position",new Frame(0.5f, new(0,0), "position", width: 200, height: 30, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3));
+
+            string today = DateTime.Today.ToString("dd/MM/yy");
+
+            UIElements.Add("textTest", new Text(0.5f, new(1700, 0), "testText", text: "Ro-land v0.21dev " + today, width: 300, height:300));
         }
 
         public void Draw()
@@ -30,10 +34,24 @@ namespace csproject2024.src
             }
         }
 
-        public void UpdateText(string elementName, string text)
+        public void UpdateAttribute(string attributeName, string elementName, string value) 
         {
             UIElement element = UIElements[elementName];
-            element.text = text;
+            
+            switch (attributeName)
+            {
+                case "text": element.text = value; break;
+
+                case "position":
+                    {
+                        string[] numbers = value.Split(',');
+                        element.position = new Vector2(int.Parse(numbers[0]), int.Parse(numbers[1]));
+                        break;
+                    }
+            }
+                
+
+            
         }
     }
 }

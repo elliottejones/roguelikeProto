@@ -18,11 +18,17 @@ namespace csproject2024.src
 
         private Texture texture;
 
+        private float footstepDelay;
+        private float footstepTime;
+
         public Player(Vector2 startPosition, int baseSpeed, Level level)
         {
             this.level = level;
             position = startPosition;
             this.baseSpeed = baseSpeed;
+
+            this.footstepTime = 0;
+            this.footstepDelay = 0;
 
             texture = new(Globals.Content.Load<Texture2D>("character"), Vector2.Zero, "playerSpriteSheet");
             animation = new(10, "playerAnimation", texture, new Point(16, 32));
@@ -52,8 +58,6 @@ namespace csproject2024.src
             }
 
             tilePosition = position / 16;
-
-            animation.FPS = 10 * (int)Math.Round(speed);
 
             if (InputManager.MoveVector == Vector2.Zero)
             {

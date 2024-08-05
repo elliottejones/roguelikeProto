@@ -12,7 +12,8 @@ namespace csproject2024.src
         private Crosshair Crosshair;
         private ScreenGUI ScreenGUI;
         private DataLogger DataLogger;
-       
+        private AudioManager AudioManager;
+
         public void init()
         {         
             Camera = new Camera();
@@ -21,8 +22,10 @@ namespace csproject2024.src
             Crosshair = new Crosshair();
             ScreenGUI = new ScreenGUI();
             DataLogger = new DataLogger();
+            AudioManager = new AudioManager();
 
             Globals.camera = Camera;
+            Globals.AudioManager = AudioManager;
 
         }
 
@@ -33,8 +36,7 @@ namespace csproject2024.src
             Camera.Follow(Player.position, Globals.GraphicsDevice.Viewport);
             DataLogger.Update();
 
-            ScreenGUI.UpdateText("position", ("X: " + ((int)Player.tilePosition.X).ToString()) +  " Y: " + ((int)Player.tilePosition.Y).ToString());
-
+            ScreenGUI.UpdateAttribute("text", "position", ("X: " + ((int)Player.tilePosition.X).ToString()) +  " Y: " + ((int)Player.tilePosition.Y).ToString());
         }
 
         public void draw()

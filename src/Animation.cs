@@ -92,8 +92,11 @@ namespace csproject2024.src
 
         public void pauseAnimation() // freezes the animation in place
         {
-            cachedFPS = FPS;
-            FPS = 0;
+            if (FPS != 0)
+            {
+                cachedFPS = FPS;
+                FPS = 0;
+            }
         }
 
         public void resumeAnimation() // unfreezes the animation (if called before any value is cached, FPS will resort to it's initial value)

@@ -86,6 +86,15 @@ namespace csproject2024.src
                 output += new Vector2(1, 0);
             }
 
+            if (output == new Vector2(1, 1) || output == new Vector2(1, -1))
+            {
+                InputOrientation = Orientation.right;
+            }
+            else if (output == new Vector2 (-1,1) || output == new Vector2(-1,-1))
+            {
+                InputOrientation = Orientation.left;
+            }
+
             if (output.LengthSquared() > 0)
             {
                 output = Vector2.Normalize(output);
