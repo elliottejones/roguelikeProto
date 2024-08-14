@@ -13,12 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin arielFont.spritefont
+#begin ambience.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:ambience.mp3
+
+#begin arialFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:arielFont.spritefont
+/build:arialFont.spritefont
 
 #begin beach.png
 /importer:TextureImporter
@@ -86,6 +92,24 @@
 /processorParam:TextureFormat=Color
 /build:grassoutline.png
 
+#begin pig.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:pig.png
+
+#begin pigSqueal.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pigSqueal.wav
+
 #begin sandoutline.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -145,6 +169,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tree2.png
+
+#begin treeFade.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:treeFade.wav
 
 #begin uibit.png
 /importer:TextureImporter

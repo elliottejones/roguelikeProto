@@ -29,6 +29,8 @@ internal class Foliage
 
     private bool willFade;
 
+    private bool fadeSoundCheck;
+
     float randomOffset;
 
     public Foliage(Texture texture, Vector2 tilePosition, bool willFade)
@@ -83,11 +85,18 @@ internal class Foliage
         {
             if (collisionBox.Contains(new Point((int)Math.Round(player.position.X), (int)Math.Round(player.position.Y))))
             {
+                if (fadeSoundCheck)
+                {
+                    Globals.AudioManager.PlaySound("treeFade", false);
+                    fadeSoundCheck = false;
+                }
+                
                 isFadingToGray = true;
             }
             else
             {
                 isFadingToGray = false;
+                fadeSoundCheck = true;
             }
 
             if (isFadingToGray != previousFadeState)

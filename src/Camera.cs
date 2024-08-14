@@ -11,15 +11,27 @@ namespace csproject2024.src
 {
     public class Camera
     {
+        private Vector2 position; // Store the current position of the camera
         public Matrix Transform { get; private set; }
 
-        public void Follow(Vector2 targetPosition, Viewport viewport)
+        public Camera()
         {
-            var position = Matrix.CreateTranslation(-targetPosition.X, -targetPosition.Y, 0);
+            position = Vector2.Zero;
+        }
+
+        public void Follow(Vector2 targetPosition, Viewport viewport, float lerpFactor = 0.1f)
+        {
+            // Interpolate between the current position and the target position
+            position = Vector2.Lerp(position, targetPosition, lerpFactor);
+
+            // Create the camera's transformation matrix
+            var translation = Matrix.CreateTranslation(-position.X, -position.Y, 0);
             var offset = Matrix.CreateTranslation(viewport.Width / 2, viewport.Height / 2, 0);
-            var zoom = Matrix.CreateScale(7, 7, 1);
-            Transform = position * zoom* offset;
+            var zoom = Matrix.CreateScale(7, 7, 1); // Adjust the scale factor as needed
+
+            Transform = translation * zoom * offset;
         }
     }
+
 
 }

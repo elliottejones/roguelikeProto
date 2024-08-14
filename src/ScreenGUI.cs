@@ -18,11 +18,11 @@ namespace csproject2024.src
 
         public ScreenGUI()
         {
-            UIElements.Add("position",new Frame(0.5f, new(0,0), "position", width: 200, height: 30, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3));
+            UIElements.Add("position",new Frame(0.5f, new(0,0), "position", width: 200, height: 30, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3, textColor:Color.Black));
 
             string today = DateTime.Today.ToString("dd/MM/yy");
 
-            UIElements.Add("textTest", new Text(0.5f, new(1700, 0), "testText", text: "Ro-land v0.21dev " + today, width: 300, height:300));
+            UIElements.Add("textTest", new Text(0.5f, new(1700, 0), "testText", text: "Ro-land v0.21dev " + today, width: 300, height: 300, textColor:Color.Black));
         }
 
         public void Draw()
@@ -48,10 +48,7 @@ namespace csproject2024.src
                         element.position = new Vector2(int.Parse(numbers[0]), int.Parse(numbers[1]));
                         break;
                     }
-            }
-                
-
-            
+            }          
         }
     }
 }

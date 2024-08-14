@@ -36,6 +36,8 @@ namespace csproject2024.src
 
         public void Update()
         {
+            Console.WriteLine("player position: " + position.X + ", " + position.Y);
+
             Vector2 projectedTilePosition = (new Vector2(position.X-8,position.Y) + InputManager.MoveVector * speed)/16;
 
             Tile projectedStandingTile = level.GetTileAt(projectedTilePosition);
@@ -63,10 +65,12 @@ namespace csproject2024.src
             {
                 animation.resetAnimation();
                 animation.pauseAnimation();
+                Globals.AudioManager.StopSound("footstepGrass");
             }
             else
             {
-                animation.resumeAnimation();
+                animation.resumeAnimation();        
+                Globals.AudioManager.PlaySound("footstepGrass", true);
             }
 
             animation.Update();

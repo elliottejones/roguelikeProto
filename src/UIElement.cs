@@ -74,7 +74,7 @@ namespace csproject2024.src
 
             bounds = new(new((int)position.X,(int)position.Y), new(width,height));
 
-            arielFont = Globals.Content.Load<SpriteFont>("arielFont");
+            arielFont = Globals.Content.Load<SpriteFont>("arialFont");
 
             if (text != null)
             {

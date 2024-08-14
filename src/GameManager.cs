@@ -13,9 +13,10 @@ namespace csproject2024.src
         private ScreenGUI ScreenGUI;
         private DataLogger DataLogger;
         private AudioManager AudioManager;
+        private MobManager MobManager;
 
         public void init()
-        {         
+        {   
             Camera = new Camera();
             Level = new Level();
             Player = new Player(new Vector2(32, 32), 1, Level);
@@ -23,18 +24,21 @@ namespace csproject2024.src
             ScreenGUI = new ScreenGUI();
             DataLogger = new DataLogger();
             AudioManager = new AudioManager();
+            MobManager = new MobManager();
 
+            AudioManager.PlaySong("ambience");
             Globals.camera = Camera;
             Globals.AudioManager = AudioManager;
 
         }
 
         public void update()
-        {        
+        {      
             Player.Update();
             Level.Update(Player,Camera);
             Camera.Follow(Player.position, Globals.GraphicsDevice.Viewport);
             DataLogger.Update();
+            MobManager.Update(Level,Player);
 
             ScreenGUI.UpdateAttribute("text", "position", ("X: " + ((int)Player.tilePosition.X).ToString()) +  " Y: " + ((int)Player.tilePosition.Y).ToString());
         }
@@ -53,6 +57,7 @@ namespace csproject2024.src
 
             Level.Draw(Player);
             Player.Draw();
+            MobManager.Draw();
             
             Globals.SpriteBatch.End();
 

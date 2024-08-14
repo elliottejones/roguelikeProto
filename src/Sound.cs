@@ -11,7 +11,9 @@ namespace csproject2024.src
     internal class Sound
     {
         private SoundEffect sound;
-        public SoundEffectInstance soundInstance;
+        private SoundEffectInstance soundInstance;
+
+        public bool IsActive => soundInstance.State == SoundState.Playing;
 
         public Sound(SoundEffect sound)
         {
@@ -21,17 +23,29 @@ namespace csproject2024.src
 
         public void Play()
         {
-            soundInstance.Play();
+            if (soundInstance.State != SoundState.Playing)
+            {
+                soundInstance.IsLooped = false;
+                soundInstance.Play();
+            }
         }
 
         public void PlayLooped()
         {
-            soundInstance.Play();
+            if (soundInstance.State != SoundState.Playing)
+            {
+                soundInstance.IsLooped = true;
+                soundInstance.Play();
+            }
         }
 
         public void Stop()
         {
-            soundInstance.Stop();
+            if (soundInstance.State == SoundState.Playing)
+            {
+                soundInstance.Stop();
+            }
         }
     }
 }
+
