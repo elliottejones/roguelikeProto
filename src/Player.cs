@@ -98,6 +98,8 @@ namespace csproject2024.src
                         break;
                     }
             }
+
+            AStar.gridBounds = new Rectangle(new Point((int)tilePosition.X - 16, (int)tilePosition.Y - 16), new Point(32,32));
         }
 
         public void Draw()

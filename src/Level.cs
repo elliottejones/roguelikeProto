@@ -8,7 +8,7 @@ namespace csproject2024.src
     internal class Level
     {
         private Dictionary<(int, int), Tile> tileMap;
-        private List<Tile> tilesToDraw;
+        public List<Tile> tilesToDraw;
         private TileGenerator tileGenerator;
         private int renderDistance;
         private Tile lastSelectedTile;
@@ -16,7 +16,7 @@ namespace csproject2024.src
 
         public Level()
         {
-            renderDistance = 16;
+            renderDistance = 24;
             tileMap = new Dictionary<(int, int), Tile>();
             tilesToDraw = new List<Tile>();
             tileGenerator = new TileGenerator();
@@ -68,7 +68,18 @@ namespace csproject2024.src
             standingTile = GetTileAt(player.spriteTilePosition);
             standingTile.stoodOn = true;
             player.standingTile = standingTile;
-            
+
+            Tile[,] AStarTiles = new Tile[32, 32];
+
+            for (int x = 0; x < 32; x++)
+            {
+                for (int y = 0; y < 32; y++)
+                {
+                    AStarTiles[x, y] = tileMap[((int)Math.Round(player.position.X -16 + x), (int)Math.Round(player.position.Y - 16 + y))];
+                }
+            }
+
+            AStar.consideredTiles = AStarTiles;
         }
 
         public void Draw(Player player)
