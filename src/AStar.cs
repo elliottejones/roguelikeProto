@@ -98,9 +98,9 @@ namespace csproject2024.src
                             return;
                         }
 
-                        foreach (Tile neighbors in GetNeighbors(currentNode))
+                        foreach (Node neighbors in GetNeighbors(currentNode))
                         {
-
+                            //add later
                         }
                     }
                 }
