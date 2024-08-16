@@ -16,12 +16,17 @@ namespace csproject2024.src
         public float HCost { get; set; }
         public Node Parent { get; set; }
 
+        public int GridX;
+        public int GridY;
+
         public float FCost { get { return GCost + HCost; } }
 
-        public Node(Vector2 position, bool walkable)
+        public Node(Vector2 position, bool walkable, int gridX, int gridY)
         {
             Position = position;
             Walkable = walkable;
+            GridX = gridX;
+            GridY = gridY;  
         }
     }
 }

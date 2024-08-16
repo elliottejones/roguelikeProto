@@ -31,6 +31,22 @@ namespace csproject2024.src
                 new Vector2(1, 1)    // Bottom Right
             };
 
+            foreach (Vector2 direction in directions)
+            {
+                Vector2 checkVector = node.Position;
+
+                Tile checkTile = Globals.Level.GetTileAt(checkVector);
+
+                if (checkTile != null)
+                {
+                    if (checkTile.canWalkOver == true)
+                    {
+                        Node neighborNode = nodeMap[(int)(node.GridX + direction.X), (int)(node.GridX + direction.Y)];
+                        neighbors.Add(neighborNode);
+                    }
+                }
+            }
+
             return neighbors;
         }
 
@@ -45,7 +61,7 @@ namespace csproject2024.src
                 {
                     bool walkable = consideredTiles[x, y].canWalkOver;
                     Vector2 position = consideredTiles[x, y].tilePosition;
-                    Node newNode = new(position, walkable);
+                    Node newNode = new(position, walkable, x, y);
 
                     if (consideredTiles[x, y] == startTile)
                     {
@@ -62,7 +78,7 @@ namespace csproject2024.src
             }
 
             List<Node> openSet = new List<Node>();
-            HashSet<Node> closeSet = new HashSet<Node>();
+            HashSet<Node> closedSet = new HashSet<Node>();
 
             openSet.Add(startNode);
 
@@ -74,6 +90,18 @@ namespace csproject2024.src
                     if (openSet[i].FCost < currentNode.FCost || (openSet[i].FCost == currentNode.FCost && openSet[i].HCost < currentNode.HCost))
                     {
                         currentNode = openSet[i];
+                        openSet.Remove(currentNode);
+                        closedSet.Add(currentNode);
+
+                        if (currentNode == endNode)
+                        {
+                            return;
+                        }
+
+                        foreach (Tile neighbors in GetNeighbors(currentNode))
+                        {
+
+                        }
                     }
                 }
             }

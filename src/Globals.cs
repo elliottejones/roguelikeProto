@@ -17,6 +17,7 @@ namespace csproject2024.src
         public static TileGenerator levelGenerator { get; set; }
         public static Camera camera { get; set; }   
         public static float ElapsedSeconds { get; set; }
+        public static Level Level { get; set; }
 
         private static double elapsedTime = 0; // Datalog elapsed time
 

@@ -29,6 +29,7 @@ namespace csproject2024.src
             AudioManager.PlaySong("ambience");
             Globals.camera = Camera;
             Globals.AudioManager = AudioManager;
+            Globals.Level = Level;
 
         }
 
