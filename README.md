@@ -8,3 +8,6 @@ A* algorithm pathfinding for mobile objects (mobs),
 Sprites completley stolen from other games as i suck at art,
 Full dynamic hierarchical UI system (WIP).
 
+# 
+
+I'm struggling to think of a name for this game, my initial idea was Ro-land (after my dog, Roland)
