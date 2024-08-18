@@ -36,8 +36,6 @@ namespace csproject2024.src
 
         public void Update()
         {
-            Console.WriteLine("player position: " + position.X + ", " + position.Y);
-
             Vector2 projectedTilePosition = (new Vector2(position.X-8,position.Y) + InputManager.MoveVector * speed)/16;
 
             Tile projectedStandingTile = level.GetTileAt(projectedTilePosition);
@@ -98,8 +96,6 @@ namespace csproject2024.src
                         break;
                     }
             }
-
-            AStar.gridBounds = new Rectangle(new Point((int)tilePosition.X - 16, (int)tilePosition.Y - 16), new Point(32,32));
         }
 
         public void Draw()

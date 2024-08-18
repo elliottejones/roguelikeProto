@@ -11,7 +11,7 @@ namespace csproject2024.src
         public List<Tile> tilesToDraw;
         private TileGenerator tileGenerator;
         private int renderDistance;
-        private Tile lastSelectedTile;
+        public Tile lastSelectedTile;
         private Tile standingTile;
 
         public Level()
@@ -75,11 +75,18 @@ namespace csproject2024.src
             {
                 for (int y = 0; y < 32; y++)
                 {
-                    AStarTiles[x, y] = tileMap[((int)Math.Round(player.position.X -16 + x), (int)Math.Round(player.position.Y - 16 + y))];
+                    if (tileMap.ContainsKey(((int)Math.Round(player.tilePosition.X - 15 + x), (int)Math.Round(player.tilePosition.Y - 15 + y))))
+                    {
+                        AStarTiles[x, y] = tileMap[((int)Math.Round(player.tilePosition.X - 15 + x), (int)Math.Round(player.tilePosition.Y - 15 + y))];
+                    } 
                 }
             }
 
             AStar.consideredTiles = AStarTiles;
+
+            AStar aStar = new AStar();
+            aStar.CalculatePath(GetTileAt(player.spriteTilePosition), GetTileAt(new(10,10)));
+
         }
 
         public void Draw(Player player)

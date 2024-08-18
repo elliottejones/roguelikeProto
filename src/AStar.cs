@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using Microsoft.Xna.Framework;
+using SharpDX.Direct2D1;
 
 namespace csproject2024.src
 {
     internal class AStar
     {
-        public static Rectangle gridBounds;
-
-        public Tile[,] consideredTiles;
+        public static Tile[,] consideredTiles;
 
         Node[,] nodeMap = new Node[32, 32];
 
-        public List<Node> GetNeighbors(Node node)
+        private List<Node> GetNeighbors(Node node)
         {
             List<Node> neighbors = new List<Node>();
 
@@ -33,21 +33,63 @@ namespace csproject2024.src
 
             foreach (Vector2 direction in directions)
             {
-                Vector2 checkVector = node.Position;
+                int newX = (int)(node.GridX + direction.X);
+                int newY = (int)(node.GridY + direction.Y);
 
-                Tile checkTile = Globals.Level.GetTileAt(checkVector);
-
-                if (checkTile != null)
+                // Check if the new position is within the bounds of the nodeMap
+                if (newX >= 0 && newX < nodeMap.GetLength(0) && newY >= 0 && newY < nodeMap.GetLength(1))
                 {
-                    if (checkTile.canWalkOver == true)
+                    Node neighborNode = nodeMap[newX, newY];
+                    if (neighborNode != null)
                     {
-                        Node neighborNode = nodeMap[(int)(node.GridX + direction.X), (int)(node.GridX + direction.Y)];
                         neighbors.Add(neighborNode);
                     }
                 }
             }
 
             return neighbors;
+        }
+
+        private int GetDistance(Node node1, Node node2)
+        {
+            if (node1 == null || node2 == null)
+            {
+                // Handle null nodes - you might want to throw an exception or return a large number
+                return int.MaxValue;
+            }
+
+            int xDistance = (int)MathF.Round(Math.Abs(node1.GridX - node2.GridX));
+            int yDistance = (int)MathF.Round(Math.Abs(node1.GridY - node2.GridY));
+
+            if (xDistance > yDistance)
+            {
+                return 14 * yDistance + 10 * (xDistance - yDistance);
+            }
+            return 14 * xDistance + 10 * (yDistance - xDistance);
+        }
+
+        private void RetracePath(Node startNode, Node endNode)
+        {
+            List<Node> path = new List<Node>();
+            Node currentNode = endNode;
+
+            while (currentNode != startNode)
+            {
+                path.Add(currentNode);
+                currentNode = currentNode.Parent;
+            }
+
+            path.Reverse();
+
+            Console.WriteLine("");
+            Console.WriteLine("the fastest route is:");
+            Console.WriteLine("");
+
+            foreach (Node node in path)
+            {
+                Console.WriteLine(node.Position);
+            }
+
         }
 
         public void CalculatePath(Tile startTile, Tile endTile)
@@ -77,37 +119,50 @@ namespace csproject2024.src
                 }
             }
 
+            if (startNode == null || endNode == null)
+            {
+                Console.WriteLine("Start or end node is null. Cannot calculate path.");
+                return;
+            }
+
             List<Node> openSet = new List<Node>();
             HashSet<Node> closedSet = new HashSet<Node>();
 
             openSet.Add(startNode);
 
-            while(openSet.Count > 0)
+            while (openSet.Count > 0)
             {
-                Node currentNode = openSet[0];
-                for (int i = 1; i < openSet.Count; i++)
+                Node currentNode = openSet.OrderBy(n => n.FCost).ThenBy(n => n.HCost).First();
+                openSet.Remove(currentNode);
+
+                if (currentNode == endNode)
                 {
-                    if (openSet[i].FCost < currentNode.FCost || (openSet[i].FCost == currentNode.FCost && openSet[i].HCost < currentNode.HCost))
+                    RetracePath(startNode, endNode);
+                    return;
+                }
+
+                closedSet.Add(currentNode);
+
+                foreach (Node neighbor in GetNeighbors(currentNode))
+                {
+                    if (!neighbor.Walkable || closedSet.Contains(neighbor))
+                        continue;
+
+                    int newMovementCostToNeighbor = currentNode.GCost + GetDistance(currentNode, neighbor);
+                    if (newMovementCostToNeighbor < neighbor.GCost || !openSet.Contains(neighbor))
                     {
-                        currentNode = openSet[i];
-                        openSet.Remove(currentNode);
-                        closedSet.Add(currentNode);
+                        neighbor.GCost = newMovementCostToNeighbor;
+                        neighbor.HCost = GetDistance(neighbor, endNode);
+                        neighbor.Parent = currentNode;
 
-                        if (currentNode == endNode)
-                        {
-                            return;
-                        }
-
-                        foreach (Node neighbors in GetNeighbors(currentNode))
-                        {
-                            //add later
-                        }
+                        if (!openSet.Contains(neighbor))
+                            openSet.Add(neighbor);
                     }
                 }
             }
 
+            RetracePath(startNode, endNode);
         }
-
-        
     }
 }
+ 

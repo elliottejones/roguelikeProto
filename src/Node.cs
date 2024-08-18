@@ -12,8 +12,8 @@ namespace csproject2024.src
     {
         public Vector2 Position { get; set; }
         public bool Walkable { get; set; }
-        public float GCost { get; set; }
-        public float HCost { get; set; }
+        public int GCost { get; set; }
+        public int HCost { get; set; }
         public Node Parent { get; set; }
 
         public int GridX;

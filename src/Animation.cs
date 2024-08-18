@@ -106,7 +106,6 @@ namespace csproject2024.src
 
         public void DrawAnimation(Vector2 position)
         {
-            Console.WriteLine(name + ": ");
             Globals.SpriteBatch.Draw(spriteSheet.texture, position, sourceRectangle, Color.White, 0f, new Vector2(frameRectangleSize.X/2,frameRectangleSize.Y/2), Vector2.One, SpriteEffects.None, 0.2f);
         }
 

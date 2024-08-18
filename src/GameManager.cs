@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Threading;
 
 namespace csproject2024.src
@@ -41,7 +42,15 @@ namespace csproject2024.src
             DataLogger.Update();
             MobManager.Update(Level,Player);
 
-            ScreenGUI.UpdateAttribute("text", "position", ("X: " + ((int)Player.tilePosition.X).ToString()) +  " Y: " + ((int)Player.tilePosition.Y).ToString());
+            try
+            {
+                ScreenGUI.UpdateAttribute("text", "position", ("X: " + ((int)Level.lastSelectedTile.tilePosition.X).ToString()) + " Y: " + ((int)Level.lastSelectedTile.tilePosition.Y).ToString());
+            }
+            catch
+            {
+                Console.WriteLine("No player cursor found");
+            }
+            
         }
 
         public void draw()

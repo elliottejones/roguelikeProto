@@ -45,7 +45,6 @@ namespace csproject2024.src
 
         public void Draw()
         {
-            Console.WriteLine("pig position: " + position.X + ", "+position.Y);
             animation.DrawAnimation(position);
         }
     }
