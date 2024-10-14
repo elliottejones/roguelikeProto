@@ -84,9 +84,6 @@ namespace csproject2024.src
 
             AStar.consideredTiles = AStarTiles;
 
-            AStar aStar = new AStar();
-            aStar.CalculatePath(GetTileAt(player.spriteTilePosition), GetTileAt(new(10,10)));
-
         }
 
         public void Draw(Player player)

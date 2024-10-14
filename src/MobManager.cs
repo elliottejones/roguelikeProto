@@ -16,7 +16,7 @@ namespace csproject2024.src
             mobs = new List<Mob>(); 
 
             Animation pigAnimation = new(10, "pig", new(Globals.Content.Load<Texture2D>("pig"), Vector2.Zero, "pig"), new Point(32, 32));
-            mobs.Add(new Mob(new(0,0), pigAnimation, 1, Mob.MobState.Wondering, 100));
+            mobs.Add(new Mob(new(0,0), pigAnimation, 30f, Mob.MobState.Wondering, 100));
         }
 
         public void Update(Level level, Player player)

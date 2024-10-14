@@ -31,6 +31,7 @@ namespace csproject2024.src
             Globals.camera = Camera;
             Globals.AudioManager = AudioManager;
             Globals.Level = Level;
+            Globals.Player = Player;    
 
         }
 

@@ -19,6 +19,8 @@ namespace csproject2024.src
         public static float ElapsedSeconds { get; set; }
         public static Level Level { get; set; }
 
+        public static Player Player { get; set; }
+
         private static double elapsedTime = 0; // Datalog elapsed time
 
         public static void Update(GameTime gt)
