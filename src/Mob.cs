@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace csproject2024.src
             Stationary, Wondering, Following, Attacking
         }
 
+        public ScreenCollider ScreenCollider;
+
         private Vector2 position;
         private Tile currentTile;
 
@@ -23,6 +26,9 @@ namespace csproject2024.src
 
         private int health;
         private int maxHealth;
+
+        private int despawnTimer = 0;
+        public bool despawned = false;
 
         public MobState state;
 
@@ -33,10 +39,13 @@ namespace csproject2024.src
         private float pathUpdateTimer = 0f;
         private const float PATH_UPDATE_INTERVAL = 1f; // Update path every 1 second
 
+        private int wonderCounter = 0;
+
         AStar pathfinder;
         private int currentCheckpointIndex = 0;
         public Mob(Vector2 startPosition, Animation animation, float walkspeed, MobState initialState, int maxHealth)
         {
+            
             this.animation = animation; 
             this.walkspeed = walkspeed;
             this.state = initialState;
@@ -47,10 +56,18 @@ namespace csproject2024.src
             this.lastPlayerPosition = new(0, 0);
 
             this.pathfinder = new AStar();
+            this.ScreenCollider = new ScreenCollider(128, 128);
         }
 
         public void Update(Level level, Player player)
         {
+            ScreenCollider.Update(new Point((int)position.X,(int)position.Y));
+
+            if (despawnTimer >= 100)
+            {
+                this.despawned = true;
+            }
+
             //Console.WriteLine($"Mob world position: {position}, Mob tile position: {currentTile?.tilePosition}");
             animation.Update();
             animation.playAnimation(0);
@@ -61,8 +78,29 @@ namespace csproject2024.src
             // Check if we need to recalculate the path
             if (pathUpdateTimer >= PATH_UPDATE_INTERVAL || Vector2.Distance(player.standingTile.tilePosition, lastPlayerPosition) > 2f)
             {
-                RecalculatePath(level, player);
                 pathUpdateTimer = 0f;
+                if (state == MobState.Following)
+                {
+                    RecalculatePathPlayer(level, player);
+                }
+                else if(state == MobState.Wondering)
+                {
+                    if (wonderCounter >= 500)
+                    {
+                        wonderCounter = 0;
+                        Random rngX = new Random();
+                        Random rngY = new Random();
+                        int offsetX = rngX.Next(-5, 5);
+                        int offsetY = rngY.Next(-5, 5);
+                        Vector2 wonderPos = new Vector2(this.currentTile.tilePosition.X + offsetX, this.currentTile.tilePosition.Y + offsetY);
+                        RecalculatePathTilePosition(level, wonderPos);
+                    }
+                    else
+                    {
+                        wonderCounter++;
+                    }
+                }
+                
             }
 
 
@@ -86,28 +124,46 @@ namespace csproject2024.src
             }
         }
 
-
-        private void RecalculatePath(Level level, Player player)
+        private void RecalculatePathTilePosition(Level level, Vector2 tilePos)
         {
-            if (IsValidTile(currentTile) && IsValidTile(player.standingTile))
+            Tile tile = level.GetTileAt(tilePos);
+            
+            if (IsValidTile(currentTile) && IsValidTile(tile) && tile.tileType != "water")
+            {
+                pathfinder.CalculatePath(currentTile, tile);
+                currentPath = pathfinder.checkPoints;
+                currentPathIndex = 0;
+                despawnTimer = 0;
+                //Console.WriteLine($"Recalculated path from {currentTile.tilePosition} to {tile.tilePosition}");
+            }
+        }
+        private void RecalculatePathPlayer(Level level, Player player)
+        {
+            if (IsValidTilePlayer(currentTile) && IsValidTilePlayer(player.standingTile))
             {
                 pathfinder.CalculatePath(currentTile, player.standingTile);
                 currentPath = pathfinder.checkPoints;
                 currentPathIndex = 0;
                 lastPlayerPosition = player.standingTile.tilePosition;
-
+                despawnTimer = 0;
                 //Console.WriteLine($"Recalculated path from {currentTile.tilePosition} to {player.standingTile.tilePosition}");
             }
             else
             {
+                despawnTimer++;
                 Console.WriteLine($"Invalid tile position. Mob: {currentTile?.tilePosition}, Player: {player.standingTile?.tilePosition}");
             }
         }
 
+        private bool IsValidTilePlayer(Tile tile)
+        {
+            return tile != null && Vector2.Distance(tile.tilePosition, Globals.Player.tilePosition) < 16;
+
+        }
+
         private bool IsValidTile(Tile tile)
         {
-            return tile != null && tile.tilePosition.X >= Globals.Player.tilePosition.X - 32 && tile.tilePosition.X < Globals.Player.tilePosition.X + 32 && tile.tilePosition.Y >= Globals.Player.tilePosition.X - 32 && tile.tilePosition.Y < Globals.Player.tilePosition.Y + 32;
-
+            return tile != null;
         }
 
         public void Draw()

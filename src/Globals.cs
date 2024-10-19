@@ -9,6 +9,7 @@ namespace csproject2024.src
 {
     internal class Globals
     {
+        public static ScreenGUI ScreenGUI { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
         public static SpriteBatch UISpriteBatch { get; set; }
         public static AudioManager AudioManager { get; set; }
@@ -17,7 +18,8 @@ namespace csproject2024.src
         public static TileGenerator levelGenerator { get; set; }
         public static Camera camera { get; set; }   
         public static float ElapsedSeconds { get; set; }
-        public static Level Level { get; set; }
+        public static MobManager MobManager { get; set; }
+        public static Level Level { get; set; }    
 
         public static Player Player { get; set; }
 

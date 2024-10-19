@@ -17,21 +17,23 @@ namespace csproject2024.src
         private MobManager MobManager;
 
         public void init()
-        {   
+        {
+            ScreenGUI = new ScreenGUI();
             Camera = new Camera();
             Level = new Level();
             Player = new Player(new Vector2(32, 32), 1, Level);
-            Crosshair = new Crosshair();
-            ScreenGUI = new ScreenGUI();
+            Crosshair = new Crosshair();  
             DataLogger = new DataLogger();
             AudioManager = new AudioManager();
             MobManager = new MobManager();
 
-            AudioManager.PlaySong("ambience");
+            Globals.ScreenGUI = ScreenGUI;
             Globals.camera = Camera;
             Globals.AudioManager = AudioManager;
             Globals.Level = Level;
-            Globals.Player = Player;    
+            Globals.Player = Player;
+            Globals.MobManager = MobManager;
+            
 
         }
 
@@ -42,6 +44,7 @@ namespace csproject2024.src
             Camera.Follow(Player.position, Globals.GraphicsDevice.Viewport);
             DataLogger.Update();
             MobManager.Update(Level,Player);
+            ScreenCollider.StaticUpdate();
 
             try
             {

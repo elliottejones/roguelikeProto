@@ -13,12 +13,17 @@ namespace csproject2024.src
     {
         public bool active;
         public bool visible;
+        public bool debugColliders;
 
         public Dictionary<string, UIElement> UIElements = new Dictionary<string, UIElement>();
+
+        public List<ScreenCollider> screenColliders = new List<ScreenCollider>();
 
         public ScreenGUI()
         {
             UIElements.Add("position",new Frame(0.5f, new(0,0), "position", width: 200, height: 30, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3, textColor:Color.Black));
+
+            debugColliders = true;
 
             string today = DateTime.Today.ToString("dd/MM/yy");
 
@@ -31,6 +36,14 @@ namespace csproject2024.src
             {
                 KeyValuePair.Value.Update();
                 KeyValuePair.Value.Draw();
+            }
+
+            if (debugColliders)
+            {
+                foreach (ScreenCollider collider in screenColliders)
+                {
+                    collider.DebugDraw();
+                }
             }
         }
 

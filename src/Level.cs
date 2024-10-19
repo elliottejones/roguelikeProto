@@ -7,7 +7,7 @@ namespace csproject2024.src
 {
     internal class Level
     {
-        private Dictionary<(int, int), Tile> tileMap;
+        public Dictionary<(int, int), Tile> tileMap;
         public List<Tile> tilesToDraw;
         private TileGenerator tileGenerator;
         private int renderDistance;

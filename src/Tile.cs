@@ -26,7 +26,7 @@ namespace csproject2024.src
 
         private bool mouseSelected;
 
-        string tileType;
+        public string tileType;
         
         // Player related properties
 

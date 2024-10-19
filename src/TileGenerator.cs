@@ -106,7 +106,7 @@ namespace csproject2024.src
                     foliage = new Foliage(tree1, tileCoordinates, true);
                     walkableTile = false;
                 }
-                if (randomFoliageIndex == 16)
+                if (randomFoliageIndex == 42)
                 {
                     foliage = new Foliage(tree2, tileCoordinates, true);
                     walkableTile = false;

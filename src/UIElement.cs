@@ -43,7 +43,7 @@ namespace csproject2024.src
         public string text;
         public Color textColor;
 
-        public Texture uibit;
+        public static Texture uibit;
 
         protected List<string> textLines;
 
