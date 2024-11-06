@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace csproject2024.src
@@ -30,5 +31,38 @@ namespace csproject2024.src
             ElapsedSeconds = (float)gt.ElapsedGameTime.TotalSeconds;
         }
 
+        public static void OpenHtmlFileInDefaultBrowser(string htmlFilePath)
+        {
+            try
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    var psi = new ProcessStartInfo
+                    {
+                        FileName = htmlFilePath,
+                        UseShellExecute = true
+                    };
+                    Process.Start(psi);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start("xdg-open", htmlFilePath);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", htmlFilePath);
+                }
+                else
+                {
+                    Console.WriteLine("Unsupported operating system.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to open HTML file: {ex.Message}");
+            }
+        }
+
     }
+
 }

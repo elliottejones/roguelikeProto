@@ -33,7 +33,7 @@ namespace csproject2024.src
         public MobState state;
 
         private List<Vector2> currentPath = new List<Vector2>();
-        private Vector2 walkVector;
+        private Vector2 lastWalkVector;
         private int currentPathIndex = 0;
         private Vector2 lastPlayerPosition;
         private float pathUpdateTimer = 0f;
@@ -70,7 +70,7 @@ namespace csproject2024.src
 
             //Console.WriteLine($"Mob world position: {position}, Mob tile position: {currentTile?.tilePosition}");
             animation.Update();
-            animation.playAnimation(0);
+            animation.playAnimation(GetFacingDirection(lastWalkVector));
             currentTile = level.GetTileAt(position/16);
 
             pathUpdateTimer += (float)Globals.ElapsedSeconds;
@@ -103,7 +103,6 @@ namespace csproject2024.src
                 
             }
 
-
             // Follow the current path
             if (currentPath.Count > 0 && currentPathIndex < currentPath.Count)
             {
@@ -114,6 +113,7 @@ namespace csproject2024.src
                 {
                     direction.Normalize();
                     position += direction * walkspeed * (float)Globals.ElapsedSeconds;
+                    lastWalkVector = direction;
                 }
                 else
                 {
@@ -169,6 +169,26 @@ namespace csproject2024.src
         public void Draw()
         {
             animation.DrawAnimation(position);
+        }
+
+        private int GetFacingDirection(Vector2 direction)
+        {
+            if (Math.Abs(direction.X) > Math.Abs(direction.Y))
+            {
+                // Horizontal movement
+                if (direction.X > 0)
+                    return 1; // Right
+                else
+                    return 3; // Left
+            }
+            else
+            {
+                // Vertical movement
+                if (direction.Y > 0)
+                    return 0; // Down
+                else
+                    return 2; // Up
+            }
         }
     }
 }

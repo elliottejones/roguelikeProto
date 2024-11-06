@@ -22,6 +22,10 @@ namespace csproject2024.src
         public ScreenGUI()
         {
             UIElements.Add("position",new Frame(0.5f, new(0,0), "position", width: 200, height: 30, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3, textColor:Color.Black));
+            UIElements.Add("vitalsBackground", new Frame(0.5f, new(1720, 980), "vitalsBackground", width: 200, height: 100, backgroundColor: Color.White, borderColor: Color.White, borderWidth: 3, textColor: Color.Black));
+
+            UIElements.Add("healthBar", new Frame(0.4f, new(1730, 990), "healthBar", width: 180, height: 45, backgroundColor: Color.Red, borderColor: Color.Transparent, borderWidth: 3, textColor: Color.Black));
+            UIElements.Add("healthText", new Frame(0.4f, new(1739, 995), "healthText", width: 180, height: 45, backgroundColor: Color.Transparent, borderColor: Color.Transparent, borderWidth: 3, textColor: Color.Black, text: "Health: 100"));
 
             debugColliders = true;
 

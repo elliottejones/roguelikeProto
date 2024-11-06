@@ -17,11 +17,14 @@ namespace csproject2024.src
             mobs = new List<Mob>();
             hitlist = new List<Mob>();
 
-            Animation pigAnimation = new(10, "pig", new(Globals.Content.Load<Texture2D>("pig"), Vector2.Zero, "pig"), new Point(32, 32));
-            mobs.Add(new Mob(new(0,0), pigAnimation, 15f, Mob.MobState.Wondering, 100));
-            mobs.Add(new Mob(new(0, 0), pigAnimation, 15f, Mob.MobState.Wondering, 100));
-           
+            newBear();
+            newBear();
+        }
 
+        private void newBear()
+        {
+            Animation bearAnimation = new(10, "bear", new(Globals.Content.Load<Texture2D>("bear"), Vector2.Zero, "bear"), new Point(32, 32));
+            mobs.Add(new Mob(new(0, 0), bearAnimation, 15f, Mob.MobState.Wondering, 100));
         }
 
         public void Update(Level level, Player player)

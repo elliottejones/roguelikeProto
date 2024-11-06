@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using System.Net;
+using System.IO;
+using System.Reflection.Metadata;
 
 namespace csproject2024.src
 {
@@ -28,9 +31,31 @@ namespace csproject2024.src
 
         private static bool wasLeftMouseDown;
 
+        private static KeyboardState previousKeyboardState;
+
         public static void Update(KeyboardState kb, MouseState ms)
         {
             MousePosition = ms.Position;
+
+            bool isAltCJustPressed =
+                kb.IsKeyDown(Keys.LeftAlt) &&
+                kb.IsKeyDown(Keys.C) &&
+                !(previousKeyboardState.IsKeyDown(Keys.LeftAlt) && previousKeyboardState.IsKeyDown(Keys.C));
+
+            if (isAltCJustPressed)
+            {
+                Globals.ScreenGUI.debugColliders = !Globals.ScreenGUI.debugColliders;
+            }
+
+            bool isAltKJustPressed =
+                kb.IsKeyDown(Keys.LeftAlt) &&
+                kb.IsKeyDown(Keys.K) &&
+                !(previousKeyboardState.IsKeyDown(Keys.LeftAlt) && previousKeyboardState.IsKeyDown(Keys.K));
+
+            if (isAltKJustPressed)
+            {
+                Globals.OpenHtmlFileInDefaultBrowser(@"..\..\..\Content\info.html");
+            }
 
             if (ms.LeftButton == ButtonState.Pressed)
             {
@@ -101,6 +126,8 @@ namespace csproject2024.src
             }
 
             MoveVector = output;
+
+            previousKeyboardState = kb;
         }
     }
 }
