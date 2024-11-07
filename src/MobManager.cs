@@ -18,7 +18,6 @@ namespace csproject2024.src
             hitlist = new List<Mob>();
 
             newBear();
-            newBear();
         }
 
         private void newBear()

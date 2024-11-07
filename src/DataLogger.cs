@@ -22,7 +22,10 @@ namespace csproject2024.src
         string GPU;
         string VRAM;
         string memory;
-        
+
+        //#####################
+        const bool doLogging = false;
+        //#####################
 
         public DataLogger()
         {
@@ -34,8 +37,10 @@ namespace csproject2024.src
             VRAM = "";
             memory = "";
 
-            LoadDeviceInformation();
-
+            if (doLogging)
+            {
+                LoadDeviceInformation();
+            }
         }
 
         private void ParseDxDiagXml(string filePath)
@@ -89,10 +94,6 @@ namespace csproject2024.src
 
         public void Update()
         {
-            //#####################
-            bool doLogging = false;
-            //#####################
-
             if (doLogging)
             {
                 float FPS = 1 / Globals.ElapsedSeconds;

@@ -28,11 +28,13 @@ namespace csproject2024.src
         private float healCounter;
         private int naturalHealAmount;
 
-        public Player(Vector2 startPosition, int baseSpeed, Level level)
+        public Player(Vector2 startPosition, int baseSpeed, Level level, int maxHealth)
         {
             this.level = level;
             position = startPosition;
             this.baseSpeed = baseSpeed;
+
+            this.health = maxHealth;
 
             this.footstepTime = 0;
             this.footstepDelay = 0;
@@ -47,10 +49,11 @@ namespace csproject2024.src
 
         public void Damage(int damage)
         {
+            Console.WriteLine("subtracted " + damage + " from health");
             health -= damage;
+            Console.WriteLine("health is now " + health);
             try
             {
-                Console.WriteLine("player hit");
                 Globals.ScreenGUI.UpdateAttribute("text", "healthText", $"{health}");
             }
             catch(Exception e)
@@ -73,6 +76,8 @@ namespace csproject2024.src
                 {
                     health = maxHealth;
                 }
+
+                Globals.ScreenGUI.UpdateAttribute("text", "healthText", $"{health}");
             }
             
 

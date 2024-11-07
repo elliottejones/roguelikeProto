@@ -109,14 +109,18 @@ namespace csproject2024.src
                 if (state == MobState.Attacking)
                 {
                     RecalculatePathPlayer(level, player);
-                    Vector2 positionDelta = this.position - player.position;
-                    if (Math.Sqrt(positionDelta.X* positionDelta.X + positionDelta.Y  * positionDelta.Y) <= 10 && hitTimer >= hitDelay)
-                    {
-                        hitTimer = 0;
-                        player.Damage(attackDamage);
-                    }
                 }
                 
+            }
+
+            if (state == MobState.Attacking)
+            {
+                Vector2 positionDelta = this.position - player.position;
+                if (Math.Sqrt((positionDelta.X * positionDelta.X) + (positionDelta.Y * positionDelta.Y)) < 10 && hitTimer > hitDelay)
+                {
+                    hitTimer = 0;
+                    player.Damage(attackDamage);
+                }
             }
 
             // Follow the current path
