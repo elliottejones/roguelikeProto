@@ -21,6 +21,13 @@ namespace csproject2024.src
         private float footstepDelay;
         private float footstepTime;
 
+        private int health;
+        private int maxHealth;
+
+        private float naturalHealTime;
+        private float healCounter;
+        private int naturalHealAmount;
+
         public Player(Vector2 startPosition, int baseSpeed, Level level)
         {
             this.level = level;
@@ -30,12 +37,45 @@ namespace csproject2024.src
             this.footstepTime = 0;
             this.footstepDelay = 0;
 
+            naturalHealAmount = 1;
+            naturalHealTime = 5f;
+            healCounter = 0f;
+
             texture = new(Globals.Content.Load<Texture2D>("character"), Vector2.Zero, "playerSpriteSheet");
             animation = new(10, "playerAnimation", texture, new Point(16, 32));
         }
 
+        public void Damage(int damage)
+        {
+            health -= damage;
+            try
+            {
+                Console.WriteLine("player hit");
+                Globals.ScreenGUI.UpdateAttribute("text", "healthText", $"{health}");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            // add damage particle effect
+        }
+
         public void Update()
         {
+            healCounter += Globals.ElapsedSeconds;
+
+            if (healCounter >= naturalHealTime)
+            {
+                health += naturalHealAmount;
+                healCounter = 0f;
+
+                if (health >= maxHealth)
+                {
+                    health = maxHealth;
+                }
+            }
+            
+
             Vector2 projectedTilePosition = (new Vector2(position.X-8,position.Y) + InputManager.MoveVector * speed)/16;
 
             Tile projectedStandingTile = level.GetTileAt(projectedTilePosition);

@@ -39,11 +39,15 @@ namespace csproject2024.src
         private float pathUpdateTimer = 0f;
         private const float PATH_UPDATE_INTERVAL = 1f; // Update path every 1 second
 
+        private float hitTimer;
+        private float hitDelay = 1f; //time between mob attacks on player
+        private int attackDamage;
+
         private int wonderCounter = 0;
 
         AStar pathfinder;
         private int currentCheckpointIndex = 0;
-        public Mob(Vector2 startPosition, Animation animation, float walkspeed, MobState initialState, int maxHealth)
+        public Mob(Vector2 startPosition, Animation animation, float walkspeed, MobState initialState, int maxHealth, int attackDamage = 0)
         {
             
             this.animation = animation; 
@@ -52,6 +56,7 @@ namespace csproject2024.src
             this.position = startPosition;
             this.maxHealth = maxHealth;
             this.health = maxHealth;
+            this.attackDamage = attackDamage;
 
             this.lastPlayerPosition = new(0, 0);
 
@@ -74,6 +79,7 @@ namespace csproject2024.src
             currentTile = level.GetTileAt(position/16);
 
             pathUpdateTimer += (float)Globals.ElapsedSeconds;
+            hitTimer += (float)Globals.ElapsedSeconds;
 
             // Check if we need to recalculate the path
             if (pathUpdateTimer >= PATH_UPDATE_INTERVAL || Vector2.Distance(player.standingTile.tilePosition, lastPlayerPosition) > 2f)
@@ -98,6 +104,16 @@ namespace csproject2024.src
                     else
                     {
                         wonderCounter++;
+                    }
+                }
+                if (state == MobState.Attacking)
+                {
+                    RecalculatePathPlayer(level, player);
+                    Vector2 positionDelta = this.position - player.position;
+                    if (Math.Sqrt(positionDelta.X* positionDelta.X + positionDelta.Y  * positionDelta.Y) <= 10 && hitTimer >= hitDelay)
+                    {
+                        hitTimer = 0;
+                        player.Damage(attackDamage);
                     }
                 }
                 
