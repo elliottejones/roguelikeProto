@@ -35,6 +35,7 @@ namespace csproject2024.src
             this.baseSpeed = baseSpeed;
 
             this.health = maxHealth;
+            this.maxHealth = maxHealth;
 
             this.footstepTime = 0;
             this.footstepDelay = 0;
@@ -75,6 +76,7 @@ namespace csproject2024.src
                 if (health >= maxHealth)
                 {
                     health = maxHealth;
+                    Console.WriteLine("set health to " + maxHealth);
                 }
 
                 Globals.ScreenGUI.UpdateAttribute("text", "healthText", $"{health}");
