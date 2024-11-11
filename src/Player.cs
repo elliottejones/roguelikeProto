@@ -28,6 +28,8 @@ namespace csproject2024.src
         private float healCounter;
         private int naturalHealAmount;
 
+        private ParticleEffect damageParticle;
+
         public Player(Vector2 startPosition, int baseSpeed, Level level, int maxHealth)
         {
             this.level = level;
@@ -44,6 +46,7 @@ namespace csproject2024.src
             naturalHealTime = 5f;
             healCounter = 0f;
 
+            damageParticle = new ParticleEffect(0.8f, 2f, 0.03f, 2f, 100, false, new(Globals.Content.Load<Texture2D>("uibit"), Vector2.Zero, "uibit"));
             texture = new(Globals.Content.Load<Texture2D>("character"), Vector2.Zero, "playerSpriteSheet");
             animation = new(10, "playerAnimation", texture, new Point(16, 32));
         }
@@ -61,13 +64,16 @@ namespace csproject2024.src
             {
                 Console.WriteLine(e);
             }
-            // add damage particle effect
+
+            damageParticle.Instantiate(position);
         }
 
         public void Update()
         {
-            healCounter += Globals.ElapsedSeconds;
+            damageParticle.Update();
 
+            healCounter += Globals.ElapsedSeconds;
+            
             if (healCounter >= naturalHealTime)
             {
                 health += naturalHealAmount;
@@ -148,6 +154,7 @@ namespace csproject2024.src
         public void Draw()
         {
             animation.DrawAnimation(position);
+            damageParticle.Draw();
         }
     }
 }
