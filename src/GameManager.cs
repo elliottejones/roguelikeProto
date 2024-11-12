@@ -48,7 +48,10 @@ namespace csproject2024.src
 
             try
             {
-                ScreenGUI.UpdateAttribute("text", "position", ("X: " + ((int)Level.lastSelectedTile.tilePosition.X).ToString()) + " Y: " + ((int)Level.lastSelectedTile.tilePosition.Y).ToString());
+                if (Level.lastSelectedTile != null)
+                {
+                    ScreenGUI.UpdateAttribute("text", "position", ("X: " + ((int)Level.lastSelectedTile.tilePosition.X).ToString()) + " Y: " + ((int)Level.lastSelectedTile.tilePosition.Y).ToString());
+                }
             }
             catch
             {

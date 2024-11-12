@@ -11,6 +11,5 @@ namespace csproject2024.src
         float attackDelay;
         Texture icon;
         Sound attackSound;
-
     }
 }

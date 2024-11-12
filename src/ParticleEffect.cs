@@ -4,11 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-/*NOTES:
- *  Use remaining parameters 
- *  Add option to stick to player position
- *  Add scaling for custom particle textures
-*/
 namespace csproject2024.src
 {
     internal class ParticleEffect
@@ -20,18 +15,26 @@ namespace csproject2024.src
             Texture2D texture;
             float duration;
             float speed;
+            float rotation;
+
+            Vector2 scale;
 
             float durationCount;
             Color fadeColor;
+            Color color;
+            bool fade;
             public bool expired;
 
-            public Particle(Vector2 position, Vector2 direction, Texture2D texture, float duration, float speed)
+            public Particle(Vector2 position, Vector2 direction, Texture2D texture, float duration, float speed, Vector2 scale, bool fade, Color color, float rotation)
             {
                 this.position = position;
                 this.direction = direction;
                 this.texture = texture;
                 this.duration = duration;
                 this.speed = speed;
+                this.fade = fade;
+                this.color = color;
+                this.scale = scale;
             }  
 
             public void Update()
@@ -44,40 +47,60 @@ namespace csproject2024.src
                     return;
                 }
 
-                float fadeAmount = (durationCount*0.7f)/duration;
-                fadeColor = new Color(Color.Red, 1-fadeAmount);
+                if (fade)
+                {
+                    float fadeAmount = (durationCount * 0.7f) / duration;
+                    fadeColor = new Color(color, 1 - fadeAmount);
+                }
+                else
+                {
+                    fadeColor = color;
+                }
+                
                 position += direction * speed;
             }
 
             public void Draw()
             {
-                Globals.SpriteBatch.Draw(texture, position, null, fadeColor, 0f, Vector2.Zero, new Vector2(1,1), SpriteEffects.None, 0.4f);
+                Globals.SpriteBatch.Draw(texture, position, null, fadeColor, rotation, Vector2.Zero, scale, SpriteEffects.None, 0.4f);
             }
         }
 
         float duration;
         float spread;
         float speed;
-        float speedVariation;
         bool gravity;
+        bool stickToPlayer;
         int count;
 
         Vector2 position;
         Random rng = new Random();
-        Texture texture;
+
+        Texture particleTexture;
+        Vector2 particleScale;
+
         List<Particle> buffer;
         List<Particle> antiBuffer;
 
-        public ParticleEffect(float duration, float spread, float speed, float speedVariation, int count, bool gravity, Texture texture)
+        bool fade;
+        Color color;
+        bool randomRotation;
+
+        public ParticleEffect(float duration, float speed, int count, bool gravity, Vector2 particleScale, Texture particleTexture, bool fade, Color color, bool randomRotation)
         {
             this.duration = duration;
-            this.spread = spread;
             this.speed = speed;
             this.count = count;
-            this.texture = texture;
+            this.gravity = gravity;
+            this.particleScale = particleScale;
+            this.particleTexture = particleTexture;
 
             this.buffer = new List<Particle>();
             this.antiBuffer = new List<Particle>();
+
+            this.fade = fade;
+            this.color = color;
+            this.randomRotation = randomRotation;
         }
 
         public void Update()
@@ -119,7 +142,17 @@ namespace csproject2024.src
 
                 Vector2 localDirection = new Vector2(SharpDX.RandomUtil.NextFloat(rng,-1,1), SharpDX.RandomUtil.NextFloat(rng,-1, 1));
 
-                buffer.Add(new Particle(this.position, localDirection, texture.texture, duration, localSpeed));
+                float localRotation;
+                if (randomRotation)
+                {
+                    localRotation = SharpDX.RandomUtil.NextFloat(rng, -1, 1);
+                }
+                else
+                {
+                    localRotation = 0f;
+                }
+
+                buffer.Add(new Particle(this.position, localDirection, particleTexture.texture, duration, localSpeed, particleScale, fade, color, localRotation));
             }    
         }
     }

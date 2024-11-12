@@ -18,6 +18,7 @@ namespace csproject2024.src
         {
             sounds.Add("footstepGrass", new(Globals.Content.Load<SoundEffect>("footstepGrass")));
             sounds.Add("treeFade", new(Globals.Content.Load<SoundEffect>("treeFade")));
+            sounds.Add("uuh", new(Globals.Content.Load<SoundEffect>("uuh")));
         }
 
         public void PlaySound(string soundName, bool looped = false)

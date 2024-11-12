@@ -65,6 +65,12 @@ namespace csproject2024.src
                         element.position = new Vector2(int.Parse(numbers[0]), int.Parse(numbers[1]));
                         break;
                     }
+                case "width":
+                    {
+                        int width = int.Parse(value);
+                        element.width = width;
+                        break;
+                    }
             }          
         }
     }

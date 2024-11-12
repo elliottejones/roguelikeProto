@@ -46,26 +46,26 @@ namespace csproject2024.src
             naturalHealTime = 5f;
             healCounter = 0f;
 
-            damageParticle = new ParticleEffect(0.8f, 2f, 0.03f, 2f, 100, false, new(Globals.Content.Load<Texture2D>("uibit"), Vector2.Zero, "uibit"));
+            damageParticle = new ParticleEffect(0.8f, 0.03f, 100, false, new(0.5f,0.5f), new(Globals.Content.Load<Texture2D>("hitParticle"), Vector2.Zero, "uibit"), true, Color.White, true);
             texture = new(Globals.Content.Load<Texture2D>("character"), Vector2.Zero, "playerSpriteSheet");
             animation = new(10, "playerAnimation", texture, new Point(16, 32));
         }
 
+
+        private void UpdateHealthBar()
+        {
+            Globals.ScreenGUI.UpdateAttribute("text", "healthText", $"{health}");
+            Globals.ScreenGUI.UpdateAttribute("width", "healthBar", $"{(int)Math.Round((float)((float)health / (float)maxHealth) * 180)}");
+        }
+
         public void Damage(int damage)
         {
-            Console.WriteLine("subtracted " + damage + " from health");
             health -= damage;
-            Console.WriteLine("health is now " + health);
-            try
-            {
-                Globals.ScreenGUI.UpdateAttribute("text", "healthText", $"{health}");
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
-            }
 
+            Globals.AudioManager.PlaySound("uuh", false);
             damageParticle.Instantiate(position);
+
+            UpdateHealthBar();
         }
 
         public void Update()
@@ -85,7 +85,7 @@ namespace csproject2024.src
                     Console.WriteLine("set health to " + maxHealth);
                 }
 
-                Globals.ScreenGUI.UpdateAttribute("text", "healthText", $"{health}");
+                UpdateHealthBar();
             }
             
 

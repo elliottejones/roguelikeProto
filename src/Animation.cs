@@ -80,6 +80,11 @@ namespace csproject2024.src
         {
             this.stateNumber = stateNumber;
             active = true;
+
+            if (FPS == 0)
+            {
+                FPS = cachedFPS;
+            }
         }
 
         public void stopAnimation() // mainly for peformance reasons. not really any need to use this
