@@ -10,7 +10,7 @@ namespace csproject2024.src
 {
     internal class MobManager
     {
-        List<Mob> mobs;
+        public List<Mob> mobs;
         List<Mob> hitlist;
         public MobManager()
         {
