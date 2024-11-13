@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
+using Microsoft.Xna.Framework;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,7 +36,7 @@ namespace csproject2024.src
         {
             foreach (Mob mob in Globals.MobManager.mobs)
             {
-                if (mob.ScreenCollider)
+
             }
         }
     }

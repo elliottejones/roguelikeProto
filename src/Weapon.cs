@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace csproject2024.src
 {
@@ -29,11 +29,11 @@ namespace csproject2024.src
         private void Attack()
         {
             Vector2 mouseScreenPosition = new Vector2(InputManager.MousePosition.X, InputManager.MousePosition.Y);
-            Vector2 mouseWorldPosition = Vector2.Transform(mouseScreenPosition, Matrix.Invert(camera.Transform));
+            Vector2 mouseWorldPosition = Vector2.Transform(mouseScreenPosition, Matrix.Invert(Globals.camera.Transform));
 
             Vector2 mouseVector = mouseWorldPosition - Globals.Player.position;
 
-            projectileList.Add(new(mouseVector));
+            projectileList.Add(new(mouseVector, 10, 10, 1, 2));
 
         }
     }
