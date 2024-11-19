@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace csproject2024.src
 {
@@ -18,7 +19,7 @@ namespace csproject2024.src
 
         public ScreenCollider ScreenCollider;
 
-        private Vector2 position;
+        public Vector2 position;
         private Tile currentTile;
 
         private Animation animation;
@@ -142,6 +143,12 @@ namespace csproject2024.src
 
                 //Console.WriteLine($"Mob position: {position}, Moving towards: {targetPosition}");
             }
+        }
+
+        public void Damage(int damage)
+        {
+            this.health -= damage;
+            Console.WriteLine("mob hit for " + damage);
         }
 
         private void RecalculatePathTilePosition(Level level, Vector2 tilePos)

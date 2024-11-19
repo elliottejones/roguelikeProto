@@ -9,9 +9,10 @@ using Microsoft.Xna.Framework;
 namespace csproject2024.src
 {
     public class Weapon : Item
-    {
-        
-        List<Projectile> projectileList;
+    {    
+        List<Projectile> projectileList = new List<Projectile>();
+        List<Projectile> despawnedProjectileList = new List<Projectile>();
+
         Texture projectileTexture;
 
         float baseProjectileSpeed;
@@ -33,8 +34,33 @@ namespace csproject2024.src
 
             Vector2 mouseVector = mouseWorldPosition - Globals.Player.position;
 
-            projectileList.Add(new(mouseVector, 10, 10, 1, 2));
+            projectileList.Add(new(mouseVector, 10, 10, 1, 2, projectileTexture.texture));
+        }
 
+        public void Update()
+        {
+            foreach (Projectile p in projectileList)
+            {
+                p.Update();
+                if (p.despawned)
+                {
+                    despawnedProjectileList.Add(p);
+                }
+            }
+
+            foreach (Projectile p in despawnedProjectileList)
+            {
+                projectileList.Remove(p);
+            }
+            despawnedProjectileList.Clear();
+        }
+
+        public void Draw()
+        {
+            foreach (Projectile p in projectileList)
+            {
+                p.Draw();
+            }
         }
     }
 }

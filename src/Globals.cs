@@ -31,6 +31,10 @@ namespace csproject2024.src
             ElapsedSeconds = (float)gt.ElapsedGameTime.TotalSeconds;
         }
 
+        public static float Vector2Magnitude(Vector2 vector)
+        {
+            return (float)Math.Sqrt((double)(vector.X * vector.X + vector.Y * vector.Y));
+        }
         public static void OpenHtmlFileInDefaultBrowser(string htmlFilePath)
         {
             try
