@@ -10,6 +10,14 @@ namespace csproject2024.src
 {
     internal class Globals
     {
+        static internal class GetItemPreset
+        {
+            public static Weapon Glock()
+            {
+                return new Weapon("glock", new(Content.Load<Texture2D>("glock"), Vector2.Zero, "glock"), null, new(0.1f, 10, 50, false, Vector2.One, new(Content.Load<Texture2D>("uibit"), Vector2.Zero, "uibit"), true, Color.Gray, false), 10);
+            }
+        }
+
         public static ScreenGUI ScreenGUI { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
         public static SpriteBatch UISpriteBatch { get; set; }

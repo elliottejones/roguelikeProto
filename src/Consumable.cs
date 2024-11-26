@@ -10,6 +10,11 @@ namespace csproject2024.src
     {
         public int StackCount;
 
+        public Consumable(string name, Texture icon, Sound useSound, ParticleEffect useParticleEffect) : base(name, icon, useSound, useParticleEffect)
+        {
+
+        }
+
         public override void Use()
         {
             if (StackCount > 0)

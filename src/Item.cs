@@ -7,17 +7,32 @@ using System.Threading.Tasks;
 
 namespace csproject2024.src
 {
-    public class Item
+    abstract class Item
     {
-        string Name;
-        Texture Icon;
-        Sound UseSound;
-        ParticleEffect UseParticleEffect;
+        string name { get; set; }
+        Texture icon { get; set; }
+        Sound useSound { get; set; }
+        ParticleEffect useParticleEffect { get; set; }
+
+        public int hotbarSlot;
+
+        public Item(string name, Texture Icon, Sound useSound, ParticleEffect useParticleEffect)
+        {
+            this.name = name;
+            this.icon = Icon;
+            this.useSound = useSound;
+            this.useParticleEffect = useParticleEffect;
+        }
 
         public virtual void Use()
         {
-            UseSound.Play();
-            UseParticleEffect.Instantiate(Globals.Player.position);
+            useSound.Play();
+            useParticleEffect.Instantiate(Globals.Player.position);
+        }
+
+        public virtual void Draw()
+        {
+
         }
     }
 }

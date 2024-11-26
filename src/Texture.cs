@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace csproject2024.src
 {
-    internal class Texture
+    public class Texture
     {
         public Texture2D texture;
         public Vector2 origin;

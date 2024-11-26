@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace csproject2024.src
 {
@@ -19,6 +20,12 @@ namespace csproject2024.src
         int baseDamage;
         int basePenetration;
         int baseLife;
+
+        public Weapon(string name, Texture icon, Sound useSound, ParticleEffect useParticleEffect, int damage): base(name, icon, useSound, useParticleEffect)
+        {
+            this.baseDamage = damage;
+
+        }
 
         public override void Use()
         {

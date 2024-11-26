@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 
 namespace csproject2024.src
 {
@@ -30,6 +31,8 @@ namespace csproject2024.src
 
         private ParticleEffect damageParticle;
 
+        private Item[] items;
+
         public Player(Vector2 startPosition, int baseSpeed, Level level, int maxHealth)
         {
             this.level = level;
@@ -49,6 +52,8 @@ namespace csproject2024.src
             damageParticle = new ParticleEffect(0.8f, 0.03f, 100, false, new(0.5f,0.5f), new(Globals.Content.Load<Texture2D>("hitParticle"), Vector2.Zero, "uibit"), true, Color.White, true);
             texture = new(Globals.Content.Load<Texture2D>("character"), Vector2.Zero, "playerSpriteSheet");
             animation = new(10, "playerAnimation", texture, new Point(16, 32));
+
+            items = new Item[4];
         }
 
 

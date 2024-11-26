@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace csproject2024.src
 {
-    internal class Sound
+    public class Sound
     {
         private SoundEffect sound;
         private SoundEffectInstance soundInstance;

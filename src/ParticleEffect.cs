@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace csproject2024.src
 {
-    internal class ParticleEffect
+    public class ParticleEffect
     {
         private class Particle
         {
