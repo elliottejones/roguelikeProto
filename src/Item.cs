@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace csproject2024.src
 {
-    abstract class Item
+    class Item
     {
         string name { get; set; }
         Texture icon { get; set; }
@@ -15,6 +17,7 @@ namespace csproject2024.src
         ParticleEffect useParticleEffect { get; set; }
 
         public int hotbarSlot;
+        Vector2 iconDrawPosition;
 
         public Item(string name, Texture Icon, Sound useSound, ParticleEffect useParticleEffect)
         {
@@ -22,6 +25,8 @@ namespace csproject2024.src
             this.icon = Icon;
             this.useSound = useSound;
             this.useParticleEffect = useParticleEffect;
+
+            this.iconDrawPosition = CalculateHotbarPosition();
         }
 
         public virtual void Use()
@@ -30,9 +35,26 @@ namespace csproject2024.src
             useParticleEffect.Instantiate(Globals.Player.position);
         }
 
+        public virtual void Update()
+        {
+
+        }
+
+        private Vector2 CalculateHotbarPosition()
+        {
+            int yPos = 970;
+            int xPos = 690 + hotbarSlot * 110;
+            return new Vector2(xPos, yPos);
+        }
+
         public virtual void Draw()
         {
 
+        }
+
+        public virtual void DrawUI(Color color)
+        {
+            Globals.UISpriteBatch.Draw(icon.texture, iconDrawPosition, null, color, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.2f);
         }
     }
 }

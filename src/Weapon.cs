@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace csproject2024.src
 {
-    public class Weapon : Item
+    class Weapon : Item
     {    
         List<Projectile> projectileList = new List<Projectile>();
         List<Projectile> despawnedProjectileList = new List<Projectile>();
@@ -44,7 +44,7 @@ namespace csproject2024.src
             projectileList.Add(new(mouseVector, 10, 10, 1, 2, projectileTexture.texture));
         }
 
-        public void Update()
+        public override void Update()
         {
             foreach (Projectile p in projectileList)
             {
@@ -62,8 +62,10 @@ namespace csproject2024.src
             despawnedProjectileList.Clear();
         }
 
-        public void Draw()
+        public override void Draw()
         {
+            base.Draw();
+
             foreach (Projectile p in projectileList)
             {
                 p.Draw();

@@ -18,6 +18,7 @@ namespace csproject2024.src
             }
         }
 
+        public static GraphicsDeviceManager GraphicsDeviceManager { get; set; }
         public static ScreenGUI ScreenGUI { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
         public static SpriteBatch UISpriteBatch { get; set; }

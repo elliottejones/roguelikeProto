@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace csproject2024.src
 {
-    public class Consumable : Item
+    class Consumable : Item
     {
         public int StackCount;
 

@@ -33,6 +33,8 @@ namespace csproject2024.src
 
         private static KeyboardState previousKeyboardState;
 
+        private static bool fullscreen;
+
         public static void Update(KeyboardState kb, MouseState ms)
         {
             MousePosition = ms.Position;
@@ -55,6 +57,18 @@ namespace csproject2024.src
             if (isAltKJustPressed)
             {
                 Globals.OpenHtmlFileInDefaultBrowser(@"..\..\..\Content\info.html");
+            }
+
+            bool isF11JustPressed =
+                kb.IsKeyDown(Keys.F11) &&
+                !(previousKeyboardState.IsKeyDown(Keys.F11));
+
+            if (isF11JustPressed)
+            {
+                fullscreen = !fullscreen;
+                Console.WriteLine("changed");
+                Globals.GraphicsDeviceManager.HardwareModeSwitch = fullscreen;
+                Globals.GraphicsDeviceManager.ApplyChanges();
             }
 
             if (ms.LeftButton == ButtonState.Pressed)
@@ -85,6 +99,8 @@ namespace csproject2024.src
                 LeftMouseDown = false;
                 LeftMousePressed = false;
             }
+
+            
 
             wasLeftMouseDown = LeftMouseDown;
 

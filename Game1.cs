@@ -18,13 +18,23 @@ namespace csproject2024
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
+            Window.IsBorderless = true;
         }
 
         protected override void Initialize()
         {
             base.Initialize();
+            Globals.GraphicsDeviceManager = _graphics;
             Globals.GraphicsDevice = GraphicsDevice;
             Globals.Content = Content;
+
+            int monitorWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            int monitorHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+
+            int centerX = (monitorWidth - 1920) / 2;
+            int centerY = (monitorHeight - 1080) / 2;
+
+            Window.Position = new Point(centerX, centerY);
 
             _gameManager = new();
             _gameManager.init();
@@ -32,7 +42,7 @@ namespace csproject2024
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.SynchronizeWithVerticalRetrace = false;
-            _graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+            _graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;        
             _graphics.ApplyChanges();
         }
 

@@ -31,7 +31,8 @@ namespace csproject2024.src
 
         private ParticleEffect damageParticle;
 
-        private Item[] items;
+        public Item[] items;
+        public int activeItemSlot;
 
         public Player(Vector2 startPosition, int baseSpeed, Level level, int maxHealth)
         {
@@ -54,9 +55,20 @@ namespace csproject2024.src
             animation = new(10, "playerAnimation", texture, new Point(16, 32));
 
             items = new Item[4];
+
+            items[3] = Globals.GetItemPreset.Glock();
         }
 
-
+        public void GiveItem(Item item)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                if (items[i] == null)
+                {
+                    items[i] = item;
+                }
+            }
+        }
         private void UpdateHealthBar()
         {
             Globals.ScreenGUI.UpdateAttribute("text", "healthText", $"{health}");
@@ -75,6 +87,13 @@ namespace csproject2024.src
 
         public void Update()
         {
+            foreach (Item item in items)
+            {
+                if (item != null)
+                {
+                    item.Update();
+                }
+            }
             damageParticle.Update();
 
             healCounter += Globals.ElapsedSeconds;
@@ -158,6 +177,13 @@ namespace csproject2024.src
 
         public void Draw()
         {
+            foreach (Item item in items)
+            {
+                if (item != null)
+                {
+                    item.Draw();
+                }        
+            }
             animation.DrawAnimation(position);
             damageParticle.Draw();
         }

@@ -51,6 +51,21 @@ namespace csproject2024.src
                     collider.DebugDraw();
                 }
             }
+
+            int activeItemSlot = Globals.Player.activeItemSlot;
+
+            foreach (Item item in Globals.Player.items)
+            {
+                if (item != null)
+                {
+                    Color color = Color.Gray;
+                    if (activeItemSlot == item.hotbarSlot)
+                    {
+                        color = Color.White;
+                    }
+                    item.DrawUI(color);
+                }
+            }
         }
 
         public void UpdateAttribute(string attributeName, string elementName, string value) 
