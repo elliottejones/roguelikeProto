@@ -31,7 +31,7 @@ namespace csproject2024.src
 
         public virtual void Use()
         {
-            useSound.Play();
+            useSound.Play(); // ADD USE SOUND HERE ###############################################################################################
             useParticleEffect.Instantiate(Globals.Player.position);
         }
 

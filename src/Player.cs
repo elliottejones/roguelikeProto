@@ -33,6 +33,7 @@ namespace csproject2024.src
 
         public Item[] items;
         public int activeItemSlot;
+        public Item activeItem;
 
         public Player(Vector2 startPosition, int baseSpeed, Level level, int maxHealth)
         {
@@ -55,17 +56,21 @@ namespace csproject2024.src
             animation = new(10, "playerAnimation", texture, new Point(16, 32));
 
             items = new Item[4];
+            activeItemSlot = 1;
 
-            items[3] = Globals.GetItemPreset.Glock();
+            this.GiveItem(Globals.GetItemPreset.Glock());
+            this.GiveItem(Globals.GetItemPreset.Glock());
+
         }
 
         public void GiveItem(Item item)
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 4; i++)
             {
                 if (items[i] == null)
                 {
                     items[i] = item;
+                    items[i].hotbarSlot = i;
                 }
             }
         }
@@ -87,13 +92,16 @@ namespace csproject2024.src
 
         public void Update()
         {
-            foreach (Item item in items)
+            for (int i = 0; i < items.Length; i++)
             {
-                if (item != null)
+                if (items[i] != null)
                 {
-                    item.Update();
+                    items[i].Update();
                 }
             }
+
+            activeItem = items[activeItemSlot - 1];
+
             damageParticle.Update();
 
             healCounter += Globals.ElapsedSeconds;

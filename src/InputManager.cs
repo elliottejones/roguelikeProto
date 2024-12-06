@@ -103,7 +103,15 @@ namespace csproject2024.src
             
 
             wasLeftMouseDown = LeftMouseDown;
-
+            
+            if (LeftMouseDown)
+            {
+                if (Globals.Player.activeItem != null)
+                {
+                    Globals.Player.activeItem.Use();
+                } 
+            }
+            
             Vector2 output = Vector2.Zero;
 
             if (kb.IsKeyDown(Keys.W))
