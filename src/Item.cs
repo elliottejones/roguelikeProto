@@ -17,7 +17,6 @@ namespace csproject2024.src
         ParticleEffect useParticleEffect { get; set; }
 
         public int hotbarSlot;
-        Vector2 iconDrawPosition;
 
         public Item(string name, Texture Icon, Sound useSound, ParticleEffect useParticleEffect)
         {
@@ -25,14 +24,12 @@ namespace csproject2024.src
             this.icon = Icon;
             this.useSound = useSound;
             this.useParticleEffect = useParticleEffect;
-
-            this.iconDrawPosition = CalculateHotbarPosition();
         }
 
         public virtual void Use()
         {
-            useSound.Play(); // ADD USE SOUND HERE ###############################################################################################
-            useParticleEffect.Instantiate(Globals.Player.position);
+            useSound.PlayQuick();
+            useParticleEffect.Instantiate(Globals.Player.position);         
         }
 
         public virtual void Update()
@@ -43,7 +40,7 @@ namespace csproject2024.src
         private Vector2 CalculateHotbarPosition()
         {
             int yPos = 970;
-            int xPos = 690 + hotbarSlot * 110;
+            int xPos = 690 + ((hotbarSlot - 1) * 110);
             return new Vector2(xPos, yPos);
         }
 
@@ -54,7 +51,7 @@ namespace csproject2024.src
 
         public virtual void DrawUI(Color color)
         {
-            Globals.UISpriteBatch.Draw(icon.texture, iconDrawPosition, null, color, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.2f);
+            Globals.UISpriteBatch.Draw(icon.texture, CalculateHotbarPosition(), null, color, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0.2f);
         }
     }
 }

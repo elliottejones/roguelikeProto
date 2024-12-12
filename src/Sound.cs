@@ -21,6 +21,12 @@ namespace csproject2024.src
             soundInstance = sound.CreateInstance();
         }
 
+        public void PlayQuick() // inefficient but good for fast repeating sounds (garbage collection overhead)
+        {
+            SoundEffectInstance quickSound = sound.CreateInstance();
+            quickSound.Play();
+        }
+
         public void Play()
         {
             if (soundInstance.State != SoundState.Playing)

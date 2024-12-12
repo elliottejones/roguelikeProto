@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -14,7 +15,7 @@ namespace csproject2024.src
         {
             public static Weapon Glock()
             {
-                return new Weapon("glock", new(Content.Load<Texture2D>("glock"), Vector2.Zero, "glock"), null, new(0.1f, 10, 50, false, Vector2.One, new(Content.Load<Texture2D>("uibit"), Vector2.Zero, "uibit"), true, Color.Gray, false), 10);
+                return new Weapon("glock", new(Content.Load<Texture2D>("glock"), Vector2.Zero, "glock"), new(Content.Load<SoundEffect>("glockshot")), new(0.1f, 10, 50, false, Vector2.One, new(Content.Load<Texture2D>("uibit"), Vector2.Zero, "uibit"), true, Color.Gray, false), 10, new(Content.Load<Texture2D>("bullet"),Vector2.Zero,"bullet"));
             }
         }
 

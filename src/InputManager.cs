@@ -104,7 +104,7 @@ namespace csproject2024.src
 
             wasLeftMouseDown = LeftMouseDown;
             
-            if (LeftMouseDown)
+            if (LeftMousePressed)
             {
                 if (Globals.Player.activeItem != null)
                 {

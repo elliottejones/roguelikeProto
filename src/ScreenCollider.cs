@@ -23,6 +23,8 @@ namespace csproject2024.src
         public bool mouseIsTouching;
         public float timeSinceLastHit;
 
+        public bool removed;
+
         private Rectangle colliderBounds;
         private Point trackerPosition;
         private int sizeX;
@@ -37,6 +39,11 @@ namespace csproject2024.src
         public static void StaticUpdate()
         {
             mouseWorldPosition = Vector2.Transform(mousePosition, Matrix.Invert(Globals.camera.Transform));
+        }
+
+        public void Remove()
+        {
+            this.removed = true;
         }
 
         public void Update(Point trackerWorldPosition)

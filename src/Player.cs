@@ -60,7 +60,6 @@ namespace csproject2024.src
 
             this.GiveItem(Globals.GetItemPreset.Glock());
             this.GiveItem(Globals.GetItemPreset.Glock());
-
         }
 
         public void GiveItem(Item item)
@@ -70,7 +69,8 @@ namespace csproject2024.src
                 if (items[i] == null)
                 {
                     items[i] = item;
-                    items[i].hotbarSlot = i;
+                    items[i].hotbarSlot = i+1;
+                    return;
                 }
             }
         }

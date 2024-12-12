@@ -23,16 +23,18 @@ namespace csproject2024.src
 
         public Projectile(Vector2 moveVector, float speed, int damage, int penetrationCount, int life, Texture2D texture)
         {
+            this.position = Globals.Player.position;
             this.moveVector = moveVector;
             this.speed = speed;
             this.penetrationCount = penetrationCount;
             this.life = life;
-            this.texture = texture;
+            this.damage = damage;
+            this.texture = texture;      
         }
 
         public void Update()
         {
-            position += moveVector * speed;
+            position += Vector2.Normalize(moveVector) * speed;
             rotation = (float)Math.Atan2(Vector2.Normalize(moveVector).Y, Vector2.Normalize(moveVector).X);
             CheckForCollisions();
             if (penetrationCount == 0)
@@ -43,7 +45,7 @@ namespace csproject2024.src
 
         public void Draw()
         {
-            Globals.SpriteBatch.Draw(texture, position, null, Color.White, rotation, Vector2.Zero, 1f, SpriteEffects.None, 0.4f);
+            Globals.SpriteBatch.Draw(texture, position, null, Color.White, rotation + 3.14f/2, Vector2.Zero, 0.3f, SpriteEffects.None, 0.4f);
         }
 
         private void CheckForCollisions()

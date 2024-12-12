@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace csproject2024.src
 {
@@ -21,10 +22,10 @@ namespace csproject2024.src
         int basePenetration;
         int baseLife;
 
-        public Weapon(string name, Texture icon, Sound useSound, ParticleEffect useParticleEffect, int damage): base(name, icon, useSound, useParticleEffect)
+        public Weapon(string name, Texture icon, Sound useSound, ParticleEffect useParticleEffect, int damage, Texture projectileTexture): base(name, icon, useSound, useParticleEffect)
         {
             this.baseDamage = damage;
-
+            this.projectileTexture = projectileTexture;
         }
 
         public override void Use()
@@ -36,6 +37,7 @@ namespace csproject2024.src
 
         private void Attack()
         {
+            Console.WriteLine("aTACAK");
             Vector2 mouseScreenPosition = new Vector2(InputManager.MousePosition.X, InputManager.MousePosition.Y);
             Vector2 mouseWorldPosition = Vector2.Transform(mouseScreenPosition, Matrix.Invert(Globals.camera.Transform));
 

@@ -18,6 +18,7 @@ namespace csproject2024.src
         public Dictionary<string, UIElement> UIElements = new Dictionary<string, UIElement>();
 
         public List<ScreenCollider> screenColliders = new List<ScreenCollider>();
+        public List<ScreenCollider> screenCollidersToRemove = new List<ScreenCollider>();
 
         public ScreenGUI()
         {
@@ -47,9 +48,18 @@ namespace csproject2024.src
             if (debugColliders)
             {
                 foreach (ScreenCollider collider in screenColliders)
-                {
+                {                 
                     collider.DebugDraw();
+                    if (collider.removed)
+                    {
+                        screenCollidersToRemove.Add(collider);
+                    }
                 }
+                foreach (ScreenCollider collider in screenCollidersToRemove)
+                {
+                    screenColliders.Remove(collider);
+                }
+                screenCollidersToRemove.Clear();
             }
 
             int activeItemSlot = Globals.Player.activeItemSlot;

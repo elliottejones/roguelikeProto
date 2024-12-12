@@ -67,6 +67,13 @@ namespace csproject2024.src
 
         public void Update(Level level, Player player)
         {
+            if (health <= 0)
+            {
+                this.despawned = true;
+                ScreenCollider.Remove();
+            }
+
+            
             ScreenCollider.Update(new Point((int)position.X,(int)position.Y));
 
             if (despawnTimer >= 100)
