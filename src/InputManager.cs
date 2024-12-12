@@ -71,6 +71,32 @@ namespace csproject2024.src
                 Globals.GraphicsDeviceManager.ApplyChanges();
             }
 
+            bool isEJustPressed =
+                kb.IsKeyDown(Keys.E) &&
+                !(previousKeyboardState.IsKeyDown(Keys.E));
+
+            if (isEJustPressed)
+            {
+                Globals.Player.activeItemSlot++;
+                if (Globals.Player.activeItemSlot >= 5)
+                {
+                    Globals.Player.activeItemSlot = 1;
+                }
+            }
+
+            bool isQJustPressed =
+                kb.IsKeyDown(Keys.Q) &&
+                !(previousKeyboardState.IsKeyDown(Keys.Q));
+
+            if (isQJustPressed)
+            {
+                Globals.Player.activeItemSlot--;
+                if (Globals.Player.activeItemSlot <= 0)
+                {
+                    Globals.Player.activeItemSlot = 4;
+                }
+            }
+
             if (ms.LeftButton == ButtonState.Pressed)
             {
                 if (!wasLeftMouseDown)

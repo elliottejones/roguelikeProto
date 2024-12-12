@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace csproject2024.src
 {
@@ -60,6 +61,8 @@ namespace csproject2024.src
 
             this.GiveItem(Globals.GetItemPreset.Glock());
             this.GiveItem(Globals.GetItemPreset.Glock());
+            this.GiveItem(Globals.GetItemPreset.Glock());
+            this.GiveItem(Globals.GetItemPreset.Glock());
         }
 
         public void GiveItem(Item item)
@@ -86,6 +89,8 @@ namespace csproject2024.src
 
             Globals.AudioManager.PlaySound("uuh", false);
             damageParticle.Instantiate(position);
+
+            Task.Run(new(Globals.ScreenGUI.PlayerDamaged(damage));
 
             UpdateHealthBar();
         }

@@ -6,6 +6,8 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Threading;
 
 namespace csproject2024.src
 {
@@ -15,6 +17,8 @@ namespace csproject2024.src
         public bool visible;
         public bool debugColliders;
 
+        bool showDamageIndicator;
+
         public Dictionary<string, UIElement> UIElements = new Dictionary<string, UIElement>();
 
         public List<ScreenCollider> screenColliders = new List<ScreenCollider>();
@@ -22,7 +26,7 @@ namespace csproject2024.src
 
         public ScreenGUI()
         {
-            UIElements.Add("position",new Frame(0.5f, new(0,0), "position", width: 200, height: 30, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3, textColor:Color.Black));
+            UIElements.Add("position", new Frame(0.5f, new(0, 0), "position", width: 200, height: 30, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3, textColor: Color.Black));
             UIElements.Add("vitalsBackground", new Frame(0.5f, new(1720, 980), "vitalsBackground", width: 200, height: 100, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3, textColor: Color.Black));
 
             UIElements.Add("healthBar", new Frame(0.4f, new(1730, 990), "healthBar", width: 180, height: 45, backgroundColor: Color.Red, borderColor: Color.Transparent, borderWidth: 3, textColor: Color.Black));
@@ -34,11 +38,24 @@ namespace csproject2024.src
 
             string today = DateTime.Today.ToString("dd/MM/yy");
 
-            UIElements.Add("textTest", new Text(0.5f, new(1700, 0), "testText", text: "The Rec v0.21dev " + today, width: 300, height: 300, textColor:Color.Black));
+            UIElements.Add("textTest", new Text(0.5f, new(1700, 0), "testText", text: "The Rec v0.21dev " + today, width: 300, height: 300, textColor: Color.Black));
+        }
+
+        public async void PlayerDamaged(int damageAmount)
+        {
+            showDamageIndicator = true;
+            Thread.Sleep(500);
+            showDamageIndicator = false;
         }
 
         public void Draw()
         {
+
+            if (showDamageIndicator)
+            {
+                Globals.UISpriteBatch.Draw(Globals.Content.Load<Texture2D>("uibit"), Vector2.Zero, null, new(new Vector4(255, 255, 255, 0.1f)), 0f, Vector2.Zero, 1920f, SpriteEffects.None, 0.7f);
+            }
+
             foreach (KeyValuePair<string,UIElement> KeyValuePair in UIElements)
             {
                 KeyValuePair.Value.Update();
@@ -68,10 +85,10 @@ namespace csproject2024.src
             {
                 if (item != null)
                 {
-                    Color color = Color.Gray;
+                    Color color = Color.White;
                     if (activeItemSlot == item.hotbarSlot)
                     {
-                        color = Color.White;
+                        color = Color.LightSalmon;
                     }
                     item.DrawUI(color);
                 }
