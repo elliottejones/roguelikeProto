@@ -17,15 +17,18 @@ namespace csproject2024.src
         public bool visible;
         public bool debugColliders;
 
-        bool showDamageIndicator;
 
         public Dictionary<string, UIElement> UIElements = new Dictionary<string, UIElement>();
+
+        public Damageborder damageBorder;
 
         public List<ScreenCollider> screenColliders = new List<ScreenCollider>();
         public List<ScreenCollider> screenCollidersToRemove = new List<ScreenCollider>();
 
         public ScreenGUI()
         {
+            damageBorder = new(new(Globals.Content.Load<Texture2D>("damageborder"), Vector2.Zero, "damageborder"));
+
             UIElements.Add("position", new Frame(0.5f, new(0, 0), "position", width: 200, height: 30, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3, textColor: Color.Black));
             UIElements.Add("vitalsBackground", new Frame(0.5f, new(1720, 980), "vitalsBackground", width: 200, height: 100, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3, textColor: Color.Black));
 
@@ -34,27 +37,16 @@ namespace csproject2024.src
 
             UIElements.Add("hotbarBackground", new Frame(0.4f, new(680, 960), "hotbarBackground", Color.White, 0f, Color.Black, 0f, 3, 560, 120, null, Color.Black));
 
-            debugColliders = true;
+            debugColliders = false;
 
             string today = DateTime.Today.ToString("dd/MM/yy");
 
             UIElements.Add("textTest", new Text(0.5f, new(1700, 0), "testText", text: "The Rec v0.21dev " + today, width: 300, height: 300, textColor: Color.Black));
         }
 
-        public async void PlayerDamaged(int damageAmount)
-        {
-            showDamageIndicator = true;
-            Thread.Sleep(500);
-            showDamageIndicator = false;
-        }
-
         public void Draw()
         {
-
-            if (showDamageIndicator)
-            {
-                Globals.UISpriteBatch.Draw(Globals.Content.Load<Texture2D>("uibit"), Vector2.Zero, null, new(new Vector4(255, 255, 255, 0.1f)), 0f, Vector2.Zero, 1920f, SpriteEffects.None, 0.7f);
-            }
+            damageBorder.Draw();
 
             foreach (KeyValuePair<string,UIElement> KeyValuePair in UIElements)
             {

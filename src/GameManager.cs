@@ -44,6 +44,7 @@ namespace csproject2024.src
             Camera.Follow(Player.position, Globals.GraphicsDevice.Viewport);
             DataLogger.Update();
             MobManager.Update(Level,Player);
+            ScreenGUI.damageBorder.Update(Player.maxHealth, Player.health);    
             ScreenCollider.StaticUpdate();
 
             try

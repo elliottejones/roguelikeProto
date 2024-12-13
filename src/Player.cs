@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace csproject2024.src
@@ -23,8 +24,8 @@ namespace csproject2024.src
         private float footstepDelay;
         private float footstepTime;
 
-        private int health;
-        private int maxHealth;
+        public int health;
+        public int maxHealth;
 
         private float naturalHealTime;
         private float healCounter;
@@ -42,14 +43,14 @@ namespace csproject2024.src
             position = startPosition;
             this.baseSpeed = baseSpeed;
 
-            this.health = maxHealth;
+            this.health = 20;
             this.maxHealth = maxHealth;
 
             this.footstepTime = 0;
             this.footstepDelay = 0;
 
             naturalHealAmount = 1;
-            naturalHealTime = 5f;
+            naturalHealTime = 1f;
             healCounter = 0f;
 
             damageParticle = new ParticleEffect(0.8f, 0.03f, 100, false, new(0.5f,0.5f), new(Globals.Content.Load<Texture2D>("hitParticle"), Vector2.Zero, "uibit"), true, Color.White, true);
@@ -90,7 +91,7 @@ namespace csproject2024.src
             Globals.AudioManager.PlaySound("uuh", false);
             damageParticle.Instantiate(position);
 
-            Task.Run(new(Globals.ScreenGUI.PlayerDamaged(damage));
+            Globals.ScreenGUI.damageBorder.Damage(damage);
 
             UpdateHealthBar();
         }
