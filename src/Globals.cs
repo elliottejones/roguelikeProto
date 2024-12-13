@@ -15,7 +15,7 @@ namespace csproject2024.src
         {
             public static Weapon Glock()
             {
-                return new Weapon("glock", new(Content.Load<Texture2D>("glock"), Vector2.Zero, "glock"), new(Content.Load<SoundEffect>("glockshot")), new(0.1f, 10, 50, false, Vector2.One, new(Content.Load<Texture2D>("uibit"), Vector2.Zero, "uibit"), true, Color.Gray, false), 10, new(Content.Load<Texture2D>("bullet"),Vector2.Zero,"bullet"));
+                return new Weapon("glock", new(Content.Load<Texture2D>("glock"), Vector2.Zero, "glock"), new(Content.Load<SoundEffect>("glockshot")), new(0.1f, 0, 1, false, new(0.3f,0.3f), new(Content.Load<Texture2D>("muzzleflash"), new(-6,-3), "muzzleflash"), false, Color.White, false, 0.1f), 10, new(Content.Load<Texture2D>("bullet"),Vector2.Zero,"bullet"), 0.15f);;
             }
         }
 

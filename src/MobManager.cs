@@ -10,24 +10,42 @@ namespace csproject2024.src
 {
     internal class MobManager
     {
+
+        float spawnTimer;
+        float spawnDelay;
+
+        Random rng;
+
         public List<Mob> mobs;
         List<Mob> hitlist;
         public MobManager()
         {
+            rng = new Random();
             mobs = new List<Mob>();
+            spawnTimer = 0f;
+            spawnDelay = 5f;
             hitlist = new List<Mob>();
-
-            newBear();
         }
 
         private void newBear()
         {
+            float rx = Math.Sign(rng.Next(-1, 1) * 50);
+            float ry = Math.Sign(rng.Next(-1, 1) * 50);
+
             Animation bearAnimation = new(10, "bear", new(Globals.Content.Load<Texture2D>("bear"), Vector2.Zero, "bear"), new Point(32, 32));
-            mobs.Add(new Mob(new(0, 0), bearAnimation, 15f, Mob.MobState.Attacking, 100, attackDamage: 10));
+            mobs.Add(new Mob(new(Globals.Player.position.X + rx, Globals.Player.position.Y + ry), bearAnimation, 15f, Mob.MobState.Attacking, 100, attackDamage: 10));
         }
 
         public void Update(Level level, Player player)
         {
+            spawnTimer += Globals.ElapsedSeconds;
+
+            if (spawnTimer >= spawnDelay)
+            {
+                newBear();
+                spawnTimer = 0f;
+            }
+
             foreach (Mob mob in mobs)
             {
                 if (mob.despawned)

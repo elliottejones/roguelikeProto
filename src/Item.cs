@@ -34,7 +34,7 @@ namespace csproject2024.src
 
         public virtual void Update()
         {
-
+            useParticleEffect.Update();
         }
 
         private Vector2 CalculateHotbarPosition()
@@ -46,7 +46,7 @@ namespace csproject2024.src
 
         public virtual void Draw()
         {
-
+            useParticleEffect.Draw();
         }
 
         public virtual void DrawUI(Color color)

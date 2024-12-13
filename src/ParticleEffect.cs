@@ -12,7 +12,8 @@ namespace csproject2024.src
         {
             Vector2 position;
             Vector2 direction;
-            Texture2D texture;
+            Texture texture;
+            float layerHeight;
             float duration;
             float speed;
             float rotation;
@@ -25,7 +26,7 @@ namespace csproject2024.src
             bool fade;
             public bool expired;
 
-            public Particle(Vector2 position, Vector2 direction, Texture2D texture, float duration, float speed, Vector2 scale, bool fade, Color color, float rotation)
+            public Particle(Vector2 position, Vector2 direction, Texture texture, float duration, float speed, Vector2 scale, bool fade, Color color, float rotation, float layerHeight)
             {
                 this.position = position;
                 this.direction = direction;
@@ -34,14 +35,17 @@ namespace csproject2024.src
                 this.speed = speed;
                 this.fade = fade;
                 this.color = color;
+                this.layerHeight = layerHeight;
                 this.scale = scale;
+
+                this.position = position += texture.origin;
             }  
 
             public void Update()
             {
                 durationCount += Globals.ElapsedSeconds;
-                
-                if(durationCount >= duration)
+
+                if (durationCount >= duration)
                 {
                     expired = true;
                     return;
@@ -62,12 +66,14 @@ namespace csproject2024.src
 
             public void Draw()
             {
-                Globals.SpriteBatch.Draw(texture, position, null, fadeColor, rotation, Vector2.Zero, scale, SpriteEffects.None, 0.4f);
+                Console.WriteLine("draw");
+                Globals.SpriteBatch.Draw(texture.texture, position, null, fadeColor, rotation, Vector2.Zero, scale, SpriteEffects.None, layerHeight);
             }
         }
 
         float duration;
         float spread;
+        float layerHeight;
         float speed;
         bool gravity;
         bool stickToPlayer;
@@ -86,7 +92,7 @@ namespace csproject2024.src
         Color color;
         bool randomRotation;
 
-        public ParticleEffect(float duration, float speed, int count, bool gravity, Vector2 particleScale, Texture particleTexture, bool fade, Color color, bool randomRotation)
+        public ParticleEffect(float duration, float speed, int count, bool gravity, Vector2 particleScale, Texture particleTexture, bool fade, Color color, bool randomRotation, float layerHeight = 0.4f)
         {
             this.duration = duration;
             this.speed = speed;
@@ -94,6 +100,7 @@ namespace csproject2024.src
             this.gravity = gravity;
             this.particleScale = particleScale;
             this.particleTexture = particleTexture;
+            this.layerHeight = layerHeight;
 
             this.buffer = new List<Particle>();
             this.antiBuffer = new List<Particle>();
@@ -135,11 +142,20 @@ namespace csproject2024.src
 
         public void Instantiate(Vector2 position)
         {
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
-                float localSpeed = SharpDX.RandomUtil.NextFloat(rng, 0.1f, 0.6f);
-                localSpeed += speed;
+                float localSpeed;
 
+                if (speed != 0)
+                {
+                    localSpeed = SharpDX.RandomUtil.NextFloat(rng, 0.1f, 0.6f);
+                    localSpeed += speed;
+                }
+                else
+                {
+                    localSpeed = 0;
+                }
+                
                 Vector2 localDirection = new Vector2(SharpDX.RandomUtil.NextFloat(rng,-1,1), SharpDX.RandomUtil.NextFloat(rng,-1, 1));
 
                 float localRotation;
@@ -152,7 +168,7 @@ namespace csproject2024.src
                     localRotation = 0f;
                 }
 
-                buffer.Add(new Particle(this.position, localDirection, particleTexture.texture, duration, localSpeed, particleScale, fade, color, localRotation));
+                buffer.Add(new Particle(this.position, localDirection, particleTexture, duration, localSpeed, particleScale, fade, color, localRotation, layerHeight));
             }    
         }
     }

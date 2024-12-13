@@ -17,22 +17,29 @@ namespace csproject2024.src
 
         Texture projectileTexture;
 
+        float delayTimer;
+
         float baseProjectileSpeed;
+        float fireDelay;
         int baseDamage;
         int basePenetration;
         int baseLife;
 
-        public Weapon(string name, Texture icon, Sound useSound, ParticleEffect useParticleEffect, int damage, Texture projectileTexture): base(name, icon, useSound, useParticleEffect)
+        public Weapon(string name, Texture icon, Sound useSound, ParticleEffect useParticleEffect, int damage, Texture projectileTexture, float fireDelay): base(name, icon, useSound, useParticleEffect)
         {
             this.baseDamage = damage;
             this.projectileTexture = projectileTexture;
+            this.fireDelay = fireDelay;
         }
 
         public override void Use()
         {
-            base.Use();
-
-            Attack();
+            if (delayTimer >= fireDelay)
+            {
+                base.Use();
+                Attack();
+                delayTimer = 0f;
+            }
         }
 
         private void Attack()
@@ -40,14 +47,15 @@ namespace csproject2024.src
             Console.WriteLine("aTACAK");
             Vector2 mouseScreenPosition = new Vector2(InputManager.MousePosition.X, InputManager.MousePosition.Y);
             Vector2 mouseWorldPosition = Vector2.Transform(mouseScreenPosition, Matrix.Invert(Globals.camera.Transform));
-
             Vector2 mouseVector = mouseWorldPosition - Globals.Player.position;
-
-            projectileList.Add(new(mouseVector, 10, 10, 1, 2, projectileTexture.texture));
+            projectileList.Add(new(mouseVector, 10, 10, 1, 2, projectileTexture.texture));                
         }
 
         public override void Update()
         {
+            delayTimer += Globals.ElapsedSeconds;
+            base.Update();
+
             foreach (Projectile p in projectileList)
             {
                 p.Update();

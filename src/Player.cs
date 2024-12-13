@@ -66,7 +66,7 @@ namespace csproject2024.src
             this.GiveItem(Globals.GetItemPreset.Glock());
         }
 
-        public void GiveItem(Item item)
+        public bool GiveItem(Item item)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -74,9 +74,11 @@ namespace csproject2024.src
                 {
                     items[i] = item;
                     items[i].hotbarSlot = i+1;
-                    return;
+                    return true;
                 }
             }
+
+            return false;
         }
         private void UpdateHealthBar()
         {
@@ -98,14 +100,6 @@ namespace csproject2024.src
 
         public void Update()
         {
-            for (int i = 0; i < items.Length; i++)
-            {
-                if (items[i] != null)
-                {
-                    items[i].Update();
-                }
-            }
-
             activeItem = items[activeItemSlot - 1];
 
             damageParticle.Update();
@@ -186,6 +180,14 @@ namespace csproject2024.src
                         animation.playAnimation(1);
                         break;
                     }
+            }
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                if (items[i] != null)
+                {
+                    items[i].Update();
+                }
             }
         }
 
