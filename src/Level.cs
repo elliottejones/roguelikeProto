@@ -14,12 +14,21 @@ namespace csproject2024.src
         public Tile lastSelectedTile;
         private Tile standingTile;
 
+        public List<DroppedItem> droppedItemList;
+        public List<DroppedItem> despawnedDroppedItems;
+
         public Level()
         {
             renderDistance = 24;
             tileMap = new Dictionary<(int, int), Tile>();
             tilesToDraw = new List<Tile>();
             tileGenerator = new TileGenerator();
+
+            droppedItemList = new List<DroppedItem>();
+            despawnedDroppedItems = new List<DroppedItem>();
+
+            droppedItemList.Add(new(Globals.GetItemPreset.Glock(), Vector2.Zero));
+
         }
 
         public bool CheckForWalkableTile(Vector2 tilePos)
@@ -36,6 +45,20 @@ namespace csproject2024.src
 
         public void Update(Player player, Camera camera)
         {
+            foreach(DroppedItem item in droppedItemList)
+            {
+                item.Update();
+                if (item.removed)
+                {
+                    despawnedDroppedItems.Add(item);
+                }
+            }
+            foreach(DroppedItem item in despawnedDroppedItems)
+            {
+                droppedItemList.Remove(item);
+            }
+            despawnedDroppedItems.Clear();
+
             lastSelectedTile?.MouseDeselect();
 
             Vector2 mouseScreenPosition = new Vector2(InputManager.MousePosition.X, InputManager.MousePosition.Y);
@@ -91,6 +114,11 @@ namespace csproject2024.src
             foreach (Tile tile in tilesToDraw)
             {
                 tile.Draw(player);
+            }
+
+            foreach(DroppedItem item in droppedItemList)
+            {
+                item.Draw();
             }
         }
     }

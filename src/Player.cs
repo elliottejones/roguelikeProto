@@ -61,9 +61,6 @@ namespace csproject2024.src
             activeItemSlot = 1;
 
             this.GiveItem(Globals.GetItemPreset.Glock());
-            this.GiveItem(Globals.GetItemPreset.Glock());
-            this.GiveItem(Globals.GetItemPreset.Glock());
-            this.GiveItem(Globals.GetItemPreset.Glock());
         }
 
         public bool GiveItem(Item item)
@@ -91,7 +88,7 @@ namespace csproject2024.src
             health -= damage;
 
             Globals.AudioManager.PlaySound("uuh", false);
-            damageParticle.Instantiate(position);
+            //damageParticle.Instantiate(position);    // commented out because it was causing lag
 
             Globals.ScreenGUI.damageBorder.Damage(damage);
 

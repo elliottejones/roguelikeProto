@@ -170,6 +170,12 @@
 /processorParam:TextureFormat=Color
 /build:muzzleflash.png
 
+#begin pickup.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:pickup.mp3
+
 #begin pig.png
 /importer:TextureImporter
 /processor:TextureProcessor

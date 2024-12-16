@@ -12,7 +12,7 @@ namespace csproject2024.src
     class Item
     {
         string name { get; set; }
-        Texture icon { get; set; }
+        public Texture icon { get; set; }
         Sound useSound { get; set; }
         ParticleEffect useParticleEffect { get; set; }
 
