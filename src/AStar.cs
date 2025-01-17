@@ -67,14 +67,14 @@ namespace csproject2024.src
 
             checkPoints.Clear();
 
-            Console.WriteLine("");
-            Console.WriteLine("to get from " + startNode.Position + " to " + endNode.Position + " :");
+            //Console.WriteLine("");
+            //Console.WriteLine("to get from " + startNode.Position + " to " + endNode.Position + " :");
 
             foreach (Node node in path)
             {
                 
-                Console.WriteLine(node.Position);
-                Console.WriteLine("");
+                //Console.WriteLine(node.Position);
+                //Console.WriteLine("");
                 checkPoints.Add(new Vector2(node.Position.X, node.Position.Y));
             }
         }

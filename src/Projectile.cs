@@ -58,6 +58,11 @@ namespace csproject2024.src
                     mob.Damage(damage);
                     this.penetrationCount--;
                 }
+
+                if (penetrationCount == 0)
+                {
+                    break;
+                }
             }
         }
     }

@@ -21,7 +21,7 @@ namespace csproject2024.src
             ScreenGUI = new ScreenGUI();
             Camera = new Camera();
             Level = new Level();
-            Player = new Player(new Vector2(32, 32), 100, Level, 100);
+            Player = new Player(new Vector2(32, 32), 1, Level, 100);
             Crosshair = new Crosshair();  
             DataLogger = new DataLogger();
             AudioManager = new AudioManager();

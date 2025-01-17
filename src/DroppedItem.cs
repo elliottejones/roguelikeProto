@@ -38,7 +38,7 @@ namespace csproject2024.src
         {
             if(Globals.Player.GiveItem(item))
             {
-                pickupSound.Play();
+                //pickupSound.Play();
                 removed = true;
             }
         }

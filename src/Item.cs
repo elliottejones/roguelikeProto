@@ -11,6 +11,7 @@ namespace csproject2024.src
 {
     class Item
     {
+        public static Texture iconBorder = new(Globals.Content.Load<Texture2D>("itemborder"), Vector2.Zero, "itemborder");
         string name { get; set; }
         public Texture icon { get; set; }
         Sound useSound { get; set; }

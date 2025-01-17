@@ -44,6 +44,13 @@ namespace csproject2024.src
             UIElements.Add("textTest", new Text(0.5f, new(1700, 0), "testText", text: "The Rec v0.21dev " + today, width: 300, height: 300, textColor: Color.Black));
         }
 
+        private Vector2 CalculateHotbarPosition(int hbs)
+        {
+            int yPos = 970;
+            int xPos = 685 + ((hbs - 1) * 110);
+            return new Vector2(xPos, yPos);
+        }
+
         public void Draw()
         {
             damageBorder.Draw();
@@ -73,14 +80,18 @@ namespace csproject2024.src
 
             int activeItemSlot = Globals.Player.activeItemSlot;
 
+            Vector2 borderDraw = CalculateHotbarPosition(activeItemSlot);
+
+            Globals.UISpriteBatch.Draw(Item.iconBorder.texture, borderDraw, Color.White);
+
             foreach (Item item in Globals.Player.items)
             {
                 if (item != null)
                 {
-                    Color color = Color.White;
+                    Color color = Color.Black;
                     if (activeItemSlot == item.hotbarSlot)
                     {
-                        color = Color.LightSalmon;
+                        color = Color.White;
                     }
                     item.DrawUI(color);
                 }

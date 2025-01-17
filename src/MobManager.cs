@@ -29,8 +29,23 @@ namespace csproject2024.src
 
         private void newBear()
         {
-            float rx = Math.Sign(rng.Next(-1, 1) * 50);
-            float ry = Math.Sign(rng.Next(-1, 1) * 50);
+            rng = new Random();
+
+            float rx = Math.Sign(rng.Next(-1, 2)) * 100;
+            float ry = Math.Sign(rng.Next(-1, 2)) * 100;
+
+            if (rx == 0)
+            {
+                rx += 100;
+            }
+
+            if (ry == 0)
+            {
+                ry -= 100;
+            }
+
+            Console.WriteLine(rx);
+            Console.WriteLine(ry);
 
             Animation bearAnimation = new(10, "bear", new(Globals.Content.Load<Texture2D>("bear"), Vector2.Zero, "bear"), new Point(32, 32));
             mobs.Add(new Mob(new(Globals.Player.position.X + rx, Globals.Player.position.Y + ry), bearAnimation, 15f, Mob.MobState.Attacking, 100, attackDamage: 10));

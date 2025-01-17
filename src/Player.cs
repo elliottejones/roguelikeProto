@@ -57,7 +57,7 @@ namespace csproject2024.src
             texture = new(Globals.Content.Load<Texture2D>("character"), Vector2.Zero, "playerSpriteSheet");
             animation = new(10, "playerAnimation", texture, new Point(16, 32));
 
-            items = new Item[4];
+            items = new Item[5];
             activeItemSlot = 1;
 
             this.GiveItem(Globals.GetItemPreset.Glock());

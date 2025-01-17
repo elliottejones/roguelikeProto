@@ -78,7 +78,7 @@ namespace csproject2024.src
             if (isEJustPressed)
             {
                 Globals.Player.activeItemSlot++;
-                if (Globals.Player.activeItemSlot >= 5)
+                if (Globals.Player.activeItemSlot >= 6)
                 {
                     Globals.Player.activeItemSlot = 1;
                 }
@@ -93,7 +93,7 @@ namespace csproject2024.src
                 Globals.Player.activeItemSlot--;
                 if (Globals.Player.activeItemSlot <= 0)
                 {
-                    Globals.Player.activeItemSlot = 4;
+                    Globals.Player.activeItemSlot = 5;
                 }
             }
 
