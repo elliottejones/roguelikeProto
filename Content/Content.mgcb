@@ -146,18 +146,6 @@
 /processorParam:TextureFormat=Color
 /build:grassoutline.png
 
-#begin gunnew.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:gunnew.png
-
 #begin hitParticle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -181,6 +169,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:itemborder.png
+
+#begin lolipop.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:lolipop.png
 
 #begin muzzleflash.png
 /importer:TextureImporter
@@ -218,6 +218,12 @@
 /processorParam:Quality=Best
 /build:pigSqueal.wav
 
+#begin pop.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pop.mp3
+
 #begin sandoutline.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -253,6 +259,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:snow.png
+
+#begin throwLolipop.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:throwLolipop.png
 
 #begin tree.png
 /importer:TextureImporter

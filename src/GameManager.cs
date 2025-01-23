@@ -15,6 +15,7 @@ namespace csproject2024.src
         private DataLogger DataLogger;
         private AudioManager AudioManager;
         private MobManager MobManager;
+        private RoundManager RoundManager;
 
         public void init()
         {
@@ -26,6 +27,7 @@ namespace csproject2024.src
             DataLogger = new DataLogger();
             AudioManager = new AudioManager();
             MobManager = new MobManager();
+            RoundManager = new RoundManager(MobManager);
 
             Globals.ScreenGUI = ScreenGUI;
             Globals.camera = Camera;
@@ -33,8 +35,6 @@ namespace csproject2024.src
             Globals.Level = Level;
             Globals.Player = Player;
             Globals.MobManager = MobManager;
-            
-
         }
 
         public void update()
@@ -46,6 +46,7 @@ namespace csproject2024.src
             MobManager.Update(Level,Player);
             ScreenGUI.damageBorder.Update(Player.maxHealth, Player.health);    
             ScreenCollider.StaticUpdate();
+            RoundManager.Update();
 
             try
             {
@@ -91,6 +92,7 @@ namespace csproject2024.src
 
             Crosshair.Draw(InputManager.MousePosition.ToVector2());
             ScreenGUI.Draw();
+
             Globals.UISpriteBatch.End();
         }
     }

@@ -60,7 +60,7 @@ namespace csproject2024.src
             items = new Item[5];
             activeItemSlot = 1;
 
-            this.GiveItem(Globals.GetItemPreset.Glock());
+            this.GiveItem(Globals.GetItemPreset.Lolipop());
         }
 
         public bool GiveItem(Item item)

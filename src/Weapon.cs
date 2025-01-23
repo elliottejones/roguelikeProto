@@ -78,7 +78,7 @@ namespace csproject2024.src
 
             foreach (Projectile p in projectileList)
             {
-                p.Draw();
+                p.Draw(projectileTexture.origin);
             }
         }
     }

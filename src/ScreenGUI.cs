@@ -37,6 +37,8 @@ namespace csproject2024.src
 
             UIElements.Add("hotbarBackground", new Frame(0.4f, new(680, 960), "hotbarBackground", Color.White, 0f, Color.Black, 0f, 3, 560, 120, null, Color.Black));
 
+            UIElements.Add("roundCount", new Frame(0.5f, new(0, 31), "roundCount", width: 200, height: 30, backgroundColor: Color.White, borderColor: Color.Black, borderWidth: 3, textColor: Color.Black, text:"Round 1"));
+
             debugColliders = false;
 
             string today = DateTime.Today.ToString("dd/MM/yy");

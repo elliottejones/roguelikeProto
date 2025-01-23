@@ -43,9 +43,9 @@ namespace csproject2024.src
             }
         }
 
-        public void Draw()
+        public void Draw(Vector2 origin)
         {
-            Globals.SpriteBatch.Draw(texture, position, null, Color.White, rotation + 3.14f/2, Vector2.Zero, 0.3f, SpriteEffects.None, 0.4f);
+            Globals.SpriteBatch.Draw(texture, position - origin, null, Color.White, rotation + 3.14f/2, Vector2.Zero, 0.3f, SpriteEffects.None, 0.4f);
         }
 
         private void CheckForCollisions()

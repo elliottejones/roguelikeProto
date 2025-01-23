@@ -10,10 +10,6 @@ namespace csproject2024.src
 {
     internal class MobManager
     {
-
-        float spawnTimer;
-        float spawnDelay;
-
         Random rng;
 
         public List<Mob> mobs;
@@ -22,13 +18,13 @@ namespace csproject2024.src
         {
             rng = new Random();
             mobs = new List<Mob>();
-            spawnTimer = 0f;
-            spawnDelay = 5f;
             hitlist = new List<Mob>();
         }
 
-        private void newBear()
+        public void newBear()
         {
+            Console.WriteLine("beer");
+
             rng = new Random();
 
             float rx = Math.Sign(rng.Next(-1, 2)) * 100;
@@ -53,14 +49,6 @@ namespace csproject2024.src
 
         public void Update(Level level, Player player)
         {
-            spawnTimer += Globals.ElapsedSeconds;
-
-            if (spawnTimer >= spawnDelay)
-            {
-                newBear();
-                spawnTimer = 0f;
-            }
-
             foreach (Mob mob in mobs)
             {
                 if (mob.despawned)

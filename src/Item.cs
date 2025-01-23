@@ -30,12 +30,20 @@ namespace csproject2024.src
         public virtual void Use()
         {
             useSound.PlayQuick();
-            useParticleEffect.Instantiate(Globals.Player.position);         
+            if (useParticleEffect != null)
+            {
+                useParticleEffect.Instantiate(Globals.Player.position);
+            }
+                    
         }
 
         public virtual void Update()
         {
-            useParticleEffect.Update();
+            if (useParticleEffect != null)
+            {
+                useParticleEffect.Update();
+            }
+            
         }
 
         private Vector2 CalculateHotbarPosition()
@@ -47,7 +55,10 @@ namespace csproject2024.src
 
         public virtual void Draw()
         {
-            useParticleEffect.Draw();
+            if (useParticleEffect != null)
+            {
+                useParticleEffect.Draw();
+            }     
         }
 
         public virtual void DrawUI(Color color)
