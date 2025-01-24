@@ -15,12 +15,12 @@ namespace csproject2024.src
         {
             public static Weapon Glock()
             {
-                return new Weapon("glock", new(Content.Load<Texture2D>("glock"), Vector2.Zero, "glock"), new(Content.Load<SoundEffect>("glockshot")), new(0.1f, 0, 1, false, new(0.3f,0.3f), new(Content.Load<Texture2D>("muzzleflash"), new(-6,-3), "muzzleflash"), false, Color.White, false, 0.1f), 10, new(Content.Load<Texture2D>("bullet"),Vector2.Zero,"bullet"), 0.15f);
+                return new Weapon("glock", new(Content.Load<Texture2D>("glock"), Vector2.Zero, "glock"), new(Content.Load<SoundEffect>("glockshot")), new(0.1f, 0, 1, false, new(0.3f,0.3f), new(Content.Load<Texture2D>("muzzleflash"), new(-6,-3), "muzzleflash"), false, Color.White, false, 0.1f), 10, new(Content.Load<Texture2D>("bullet"),Vector2.Zero,"bullet"), 0.15f, 10, 1);
             }
 
             public static Weapon Lolipop()
             {
-                return new Weapon("lolipop", new(Content.Load<Texture2D>("lolipop"), Vector2.Zero, "lolipop"), new(Content.Load<SoundEffect>("pop")), null, 10, new(Content.Load<Texture2D>("throwLolipop"), new(0,0), "lolipop"), 0.15f);
+                return new Weapon("lolipop", new(Content.Load<Texture2D>("lolipop"), Vector2.Zero, "lolipop"), new(Content.Load<SoundEffect>("pop")), null, 40, new(Content.Load<Texture2D>("throwLolipop"), new(1,1), "lolipop"), 1f, 3, 1);
             }
         }
 

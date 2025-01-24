@@ -32,17 +32,7 @@ namespace csproject2024.src
             if (timeRemaining <= 0)
             {
                 newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
             }
-
-            Console.WriteLine("spawn delay =" + spawnDelay);
-            Console.WriteLine("spawn counter =" + spawnCounter);
 
             if (spawnCounter <= 0)
             {

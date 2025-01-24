@@ -35,9 +35,17 @@ namespace csproject2024.src
 
         private static bool fullscreen;
 
+        private static int lastScrollWheelPosition;
+        private static int changeInScrollWheelPosition;
+
         public static void Update(KeyboardState kb, MouseState ms)
         {
             MousePosition = ms.Position;
+
+            changeInScrollWheelPosition = lastScrollWheelPosition - ms.ScrollWheelValue;
+            lastScrollWheelPosition = ms.ScrollWheelValue;
+            Console.WriteLine(changeInScrollWheelPosition);
+            Globals.camera.cameraZoom += changeInScrollWheelPosition*0.01f;
 
             bool isAltCJustPressed =
                 kb.IsKeyDown(Keys.LeftAlt) &&

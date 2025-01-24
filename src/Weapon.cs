@@ -25,11 +25,13 @@ namespace csproject2024.src
         int basePenetration;
         int baseLife;
 
-        public Weapon(string name, Texture icon, Sound useSound, ParticleEffect useParticleEffect, int damage, Texture projectileTexture, float fireDelay): base(name, icon, useSound, useParticleEffect)
+        public Weapon(string name, Texture icon, Sound useSound, ParticleEffect useParticleEffect, int damage, Texture projectileTexture, float fireDelay, float projectileSpeed, int penetration): base(name, icon, useSound, useParticleEffect)
         {
             this.baseDamage = damage;
             this.projectileTexture = projectileTexture;
             this.fireDelay = fireDelay;
+            this.baseProjectileSpeed = projectileSpeed;
+            this.basePenetration = penetration;
         }
 
         public override void Use()
@@ -48,7 +50,7 @@ namespace csproject2024.src
             Vector2 mouseScreenPosition = new Vector2(InputManager.MousePosition.X, InputManager.MousePosition.Y);
             Vector2 mouseWorldPosition = Vector2.Transform(mouseScreenPosition, Matrix.Invert(Globals.camera.Transform));
             Vector2 mouseVector = mouseWorldPosition - Globals.Player.position;
-            projectileList.Add(new(mouseVector, 10, 10, 1, 2, projectileTexture.texture));                
+            projectileList.Add(new(mouseVector, baseProjectileSpeed, baseDamage, basePenetration, 2, projectileTexture.texture));                
         }
 
         public override void Update()

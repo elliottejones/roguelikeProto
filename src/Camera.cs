@@ -14,6 +14,8 @@ namespace csproject2024.src
         private Vector2 position; // Store the current position of the camera
         public Matrix Transform { get; private set; }
 
+        public float cameraZoom;
+
         public Camera()
         {
             position = Vector2.Zero;
@@ -27,7 +29,7 @@ namespace csproject2024.src
             // Create the camera's transformation matrix
             var translation = Matrix.CreateTranslation(-position.X, -position.Y, 0);
             var offset = Matrix.CreateTranslation(viewport.Width / 2, viewport.Height / 2, 0);
-            var zoom = Matrix.CreateScale(7, 7, 1); // Adjust the scale factor as needed
+            var zoom = Matrix.CreateScale(cameraZoom, cameraZoom, 1); // Adjust the scale factor as needed
 
             Transform = translation * zoom * offset;
         }
