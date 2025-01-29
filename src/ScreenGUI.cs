@@ -60,7 +60,11 @@ namespace csproject2024.src
             foreach (KeyValuePair<string,UIElement> KeyValuePair in UIElements)
             {
                 KeyValuePair.Value.Update();
-                KeyValuePair.Value.Draw();
+                if (KeyValuePair.Value.visible)
+                {
+                    KeyValuePair.Value.Draw();
+                }
+                
             }
 
             if (debugColliders)
@@ -118,6 +122,11 @@ namespace csproject2024.src
                     {
                         int width = int.Parse(value);
                         element.width = width;
+                        break;
+                    }
+                case "visible":
+                    {
+                        element.visible = bool.Parse(value);
                         break;
                     }
             }          

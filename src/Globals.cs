@@ -24,6 +24,7 @@ namespace csproject2024.src
             }
         }
 
+        public static GameManager GameManager { get; set; }
         public static int RoundNumber {  get; set; }
         public static GraphicsDeviceManager GraphicsDeviceManager { get; set; }
         public static ScreenGUI ScreenGUI { get; set; }

@@ -17,28 +17,29 @@ namespace csproject2024.src
         private MobManager MobManager;
         private RoundManager RoundManager;
 
-        public void init()
+        public void Init()
         {
             ScreenGUI = new ScreenGUI();
             Camera = new Camera();
             Level = new Level();
             Player = new Player(new Vector2(32, 32), 1, Level, 100);
-            Crosshair = new Crosshair();  
+            Crosshair = new Crosshair();
             DataLogger = new DataLogger();
             AudioManager = new AudioManager();
             MobManager = new MobManager();
             RoundManager = new RoundManager(MobManager);
 
-            Globals.ScreenGUI = ScreenGUI;
+
             Globals.camera = Camera;
             Globals.AudioManager = AudioManager;
             Globals.Level = Level;
             Globals.Player = Player;
             Globals.MobManager = MobManager;
+            Globals.GameManager = this;
         }
 
         public void update()
-        {      
+        {
             Player.Update();
             Level.Update(Player,Camera);
             Camera.Follow(Player.position, Globals.GraphicsDevice.Viewport);
@@ -90,6 +91,10 @@ namespace csproject2024.src
                 null
             );
 
+            if (InputManager.mainMenu)
+            {
+                Globals.UISpriteBatch.Draw(Globals.Content.Load<Texture2D>("mainmenu"), Vector2.Zero, Color.White);
+            }
             Crosshair.Draw(InputManager.MousePosition.ToVector2());
             ScreenGUI.Draw();
 

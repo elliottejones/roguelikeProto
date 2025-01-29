@@ -19,6 +19,8 @@ namespace csproject2024.src
             down, right, up, left
         }
 
+        public static bool mainMenu = true;
+
         public static Vector2 MoveVector = Vector2.Zero;
 
         public static Orientation InputOrientation;
@@ -45,7 +47,22 @@ namespace csproject2024.src
             changeInScrollWheelPosition = lastScrollWheelPosition - ms.ScrollWheelValue;
             lastScrollWheelPosition = ms.ScrollWheelValue;
             Console.WriteLine(changeInScrollWheelPosition);
-            Globals.camera.cameraZoom += changeInScrollWheelPosition*0.01f;
+            Globals.camera.cameraZoom -= changeInScrollWheelPosition*0.01f;
+
+            
+
+            bool isEnterJustPressed =
+                kb.IsKeyDown(Keys.Enter) &&
+                !(previousKeyboardState.IsKeyDown(Keys.Enter));
+
+            if (isEnterJustPressed)
+            {
+                if (mainMenu)
+                {
+                    Globals.GameManager.Init();
+                    mainMenu = false;
+                }
+            }
 
             bool isAltCJustPressed =
                 kb.IsKeyDown(Keys.LeftAlt) &&

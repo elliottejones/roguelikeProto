@@ -37,8 +37,7 @@ namespace csproject2024
             Window.Position = new Point(centerX, centerY);
 
             _gameManager = new();
-            _gameManager.init();
-
+            _gameManager.Init();
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.SynchronizeWithVerticalRetrace = false;

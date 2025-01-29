@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -97,6 +98,13 @@ namespace csproject2024.src
 
         public void Update()
         {
+
+            if (health <= 0)
+            {
+                health = 0;
+                Globals.GameManager.Init();
+            }
+
             activeItem = items[activeItemSlot - 1];
 
             damageParticle.Update();
