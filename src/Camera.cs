@@ -14,7 +14,7 @@ namespace csproject2024.src
         private Vector2 position; // Store the current position of the camera
         public Matrix Transform { get; private set; }
 
-        public float cameraZoom;
+        public float cameraZoom = 7f;
 
         private float lerpZoom;
 
@@ -23,7 +23,7 @@ namespace csproject2024.src
             position = Vector2.Zero;
         }
 
-        public void Follow(Vector2 targetPosition, Viewport viewport, float lerpFactor = 0.1f)
+        public void Follow(Vector2 targetPosition, Viewport viewport, float lerpFactor = 0.03f)
         {
             // Interpolate between the current position and the target position
             cameraZoom = Math.Clamp(cameraZoom, 3, 8);

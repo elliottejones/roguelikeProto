@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace csproject2024.src
 {
-
     internal class RoundManager
     {
+        public static bool doSpawn;
+
         MobManager mobManager;
 
         int roundNumber = 1;
@@ -25,6 +26,11 @@ namespace csproject2024.src
 
         public void Update()
         {
+            if (!doSpawn)
+            {
+                return;
+            }
+
             timeRemaining -= Globals.ElapsedSeconds;
 
             spawnCounter -= Globals.ElapsedSeconds;

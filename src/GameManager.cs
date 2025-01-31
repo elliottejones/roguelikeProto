@@ -29,7 +29,7 @@ namespace csproject2024.src
             MobManager = new MobManager();
             RoundManager = new RoundManager(MobManager);
 
-
+            Globals.ScreenGUI = ScreenGUI;
             Globals.camera = Camera;
             Globals.AudioManager = AudioManager;
             Globals.Level = Level;

@@ -102,6 +102,8 @@ namespace csproject2024.src
             if (health <= 0)
             {
                 health = 0;
+                InputManager.mainMenu = true;
+                RoundManager.doSpawn = false;
                 Globals.GameManager.Init();
             }
 

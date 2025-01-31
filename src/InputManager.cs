@@ -61,6 +61,7 @@ namespace csproject2024.src
                 {
                     Globals.GameManager.Init();
                     mainMenu = false;
+                    RoundManager.doSpawn = true;
                 }
             }
 
