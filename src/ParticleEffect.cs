@@ -66,7 +66,7 @@ namespace csproject2024.src
 
             public void Draw()
             {
-                Console.WriteLine("draw");
+                //Console.WriteLine("draw");
                 Globals.SpriteBatch.Draw(texture.texture, position, null, fadeColor, rotation, Vector2.Zero, scale, SpriteEffects.None, layerHeight);
             }
         }

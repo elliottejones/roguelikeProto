@@ -46,7 +46,7 @@ namespace csproject2024.src
 
         private void Attack()
         {
-            Console.WriteLine("aTACAK");
+            //Console.WriteLine("aTACAK");
             Vector2 mouseScreenPosition = new Vector2(InputManager.MousePosition.X, InputManager.MousePosition.Y);
             Vector2 mouseWorldPosition = Vector2.Transform(mouseScreenPosition, Matrix.Invert(Globals.camera.Transform));
             Vector2 mouseVector = mouseWorldPosition - Globals.Player.position;

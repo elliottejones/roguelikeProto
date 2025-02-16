@@ -83,7 +83,5 @@ namespace csproject2024.src
                 Console.WriteLine($"Failed to open HTML file: {ex.Message}");
             }
         }
-
     }
-
 }
