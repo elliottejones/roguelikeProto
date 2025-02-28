@@ -27,8 +27,19 @@ namespace csproject2024.src
             droppedItemList = new List<DroppedItem>();
             despawnedDroppedItems = new List<DroppedItem>();
 
-            droppedItemList.Add(new(Globals.GetItemPreset.Glock(), Vector2.Zero));
+            AddItem(Globals.GetItemPreset.Glock(), Vector2.Zero);
+            AddItem(Globals.GetItemPreset.Cheese(), new(50,50));
+            AddItem(Globals.GetItemPreset.Cheese(), new(100, 50));
+            AddItem(Globals.GetItemPreset.Cheese(), new(50, 100));
+            AddItem(Globals.GetItemPreset.Cheese(), new(50, -50));
+            AddItem(Globals.GetItemPreset.Cheese(), new(-50, 50));
+            AddItem(Globals.GetItemPreset.Cheese(), new(-50, -50));
 
+        }
+
+        public void AddItem(Item item, Vector2 position)
+        {
+            droppedItemList.Add(new(item, position));
         }
 
         public bool CheckForWalkableTile(Vector2 tilePos)

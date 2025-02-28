@@ -35,6 +35,7 @@ namespace csproject2024.src
         private ParticleEffect damageParticle;
 
         public Item[] items;
+        public List<Item> removedItems;
         public int activeItemSlot;
         public Item activeItem;
 
@@ -58,7 +59,9 @@ namespace csproject2024.src
             texture = new(Globals.Content.Load<Texture2D>("character"), Vector2.Zero, "playerSpriteSheet");
             animation = new(10, "playerAnimation", texture, new Point(16, 32));
 
+            removedItems = new List<Item>();
             items = new Item[5];
+            
             activeItemSlot = 1;
 
             this.GiveItem(Globals.GetItemPreset.Lolipop());
@@ -68,6 +71,12 @@ namespace csproject2024.src
         {
             for (int i = 0; i < 4; i++)
             {
+                if (items[i] is Consumable && items[i].name == item.name)
+                {
+                    items[i].AddToStack();
+                    return true;
+                }
+
                 if (items[i] == null)
                 {
                     items[i] = item;
@@ -77,6 +86,18 @@ namespace csproject2024.src
             }
 
             return false;
+        }
+
+        public void RemoveItem(Item item)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (items[i] == item)
+                {
+                    Console.WriteLine("Removed " + item.name);
+                    items[i] = null;
+                }
+            }
         }
         private void UpdateHealthBar()
         {
@@ -126,7 +147,13 @@ namespace csproject2024.src
 
                 UpdateHealthBar();
             }
-            
+
+            if (health >= maxHealth)
+            {
+                health = maxHealth;
+                UpdateHealthBar();
+            }
+
 
             Vector2 projectedTilePosition = (new Vector2(position.X-8,position.Y) + InputManager.MoveVector * speed)/16;
 

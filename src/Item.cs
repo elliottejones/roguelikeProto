@@ -12,7 +12,7 @@ namespace csproject2024.src
     class Item
     {
         public static Texture iconBorder = new(Globals.Content.Load<Texture2D>("itemborder"), Vector2.Zero, "itemborder");
-        string name { get; set; }
+        public string name { get; set; }
         public Texture icon { get; set; }
         Sound useSound { get; set; }
         ParticleEffect useParticleEffect { get; set; }
@@ -43,10 +43,19 @@ namespace csproject2024.src
             {
                 useParticleEffect.Update();
             }
+        }
+
+        public virtual void AddToStack()
+        {
             
         }
 
-        private Vector2 CalculateHotbarPosition()
+        public void Remove()
+        {
+            Globals.Player.RemoveItem(this);
+        }
+
+        public Vector2 CalculateHotbarPosition()
         {
             int yPos = 970;
             int xPos = 690 + ((hotbarSlot - 1) * 110);
