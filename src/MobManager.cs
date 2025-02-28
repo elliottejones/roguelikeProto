@@ -23,7 +23,7 @@ namespace csproject2024.src
 
         public void newBear()
         {
-            Console.WriteLine("beer");
+            //Console.WriteLine("beer");
 
             rng = new Random();
 
@@ -40,8 +40,8 @@ namespace csproject2024.src
                 ry -= 100;
             }
 
-            Console.WriteLine(rx);
-            Console.WriteLine(ry);
+            //Console.WriteLine(rx);
+            //Console.WriteLine(ry);
 
             Animation bearAnimation = new(10, "bear", new(Globals.Content.Load<Texture2D>("bear"), Vector2.Zero, "bear"), new Point(32, 32));
             mobs.Add(new Mob(new(Globals.Player.position.X + rx, Globals.Player.position.Y + ry), bearAnimation, 15f, Mob.MobState.Attacking, 100, attackDamage: 10));

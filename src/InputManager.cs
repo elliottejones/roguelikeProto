@@ -46,7 +46,7 @@ namespace csproject2024.src
 
             changeInScrollWheelPosition = lastScrollWheelPosition - ms.ScrollWheelValue;
             lastScrollWheelPosition = ms.ScrollWheelValue;
-            Console.WriteLine(changeInScrollWheelPosition);
+            //Console.WriteLine(changeInScrollWheelPosition);
             Globals.camera.cameraZoom -= changeInScrollWheelPosition*0.01f;
 
             

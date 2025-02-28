@@ -110,7 +110,7 @@ namespace csproject2024.src
             health -= damage;
 
             Globals.AudioManager.PlaySound("uuh", false);
-            //damageParticle.Instantiate(position);    // commented out because it was causing lag
+            damageParticle.Instantiate(position);    // commented out because it was causing lag
 
             Globals.ScreenGUI.damageBorder.Damage(damage);
 

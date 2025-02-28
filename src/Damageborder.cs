@@ -42,10 +42,10 @@ namespace csproject2024.src
             {
                 showPermanentDamageIndicator = true;
 
-                Console.WriteLine(health/10);
+                //Console.WriteLine(health/10);
 
                 permanentBorderFade = MathHelper.Clamp(1f - (health/10), 0f, 1f);
-                Console.WriteLine(permanentBorderFade);
+                //Console.WriteLine(permanentBorderFade);
             }
             else
             {
