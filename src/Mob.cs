@@ -69,6 +69,19 @@ namespace csproject2024.src
         {
             if (health <= 0)
             {
+                Random rng = new Random();
+
+                int value = rng.Next(100);
+
+                if (value == 69)
+                {
+                    Globals.Level.AddItem(Globals.GetItemPreset.Stim(), position);
+                }
+                else if (value == 42)
+                {
+                    Globals.Level.AddItem(Globals.GetItemPreset.Cheese(), position);
+                }
+
                 this.despawned = true;
                 ScreenCollider.Remove();
             }

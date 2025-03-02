@@ -42,10 +42,16 @@ namespace csproject2024.src
                     Heal();
                     break;
                 case (ConsumableType.SpeedBoost):
+                    SpeedBoost();
                     break;
                 case (ConsumableType.DamageBoost):
                     break;
             }
+        }
+
+        private void SpeedBoost()
+        {
+            Globals.Player.Boost(10, 2);
         }
 
         private void RegenHealth()

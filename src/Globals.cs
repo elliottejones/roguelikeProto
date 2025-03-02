@@ -23,6 +23,11 @@ namespace csproject2024.src
                 return new Weapon("lolipop", new(Content.Load<Texture2D>("lolipop"), Vector2.Zero, "lolipop"), new(Content.Load<SoundEffect>("pop")), null, 40, new(Content.Load<Texture2D>("throwLolipop"), new(1,1), "lolipop"), 1f, 3, 1);
             }
 
+            public static Consumable Stim()
+            {
+                return new Consumable("stim", new(Content.Load<Texture2D>("stim"), Vector2.Zero, "stim"), new(Content.Load<SoundEffect>("nomnomnom")), null, Consumable.ConsumableType.SpeedBoost);
+            }
+
             public static Consumable Cheese()
             {
                 return new Consumable("cheese", new(Content.Load<Texture2D>("cheese"), Vector2.Zero, "cheese"), new(Content.Load<SoundEffect>("nomnomnom")), null, Consumable.ConsumableType.Heal);

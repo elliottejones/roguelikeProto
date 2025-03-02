@@ -32,8 +32,9 @@ namespace csproject2024.src
             AddItem(Globals.GetItemPreset.Cheese(), new(100, 50));
             AddItem(Globals.GetItemPreset.Cheese(), new(50, 100));
             AddItem(Globals.GetItemPreset.Cheese(), new(50, -50));
-            AddItem(Globals.GetItemPreset.Cheese(), new(-50, 50));
-            AddItem(Globals.GetItemPreset.Cheese(), new(-50, -50));
+            AddItem(Globals.GetItemPreset.Stim(), new(-50, 50));
+            AddItem(Globals.GetItemPreset.Stim(), new(-50, -50));
+
 
         }
 

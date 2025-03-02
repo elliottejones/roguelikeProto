@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,6 +32,9 @@ namespace csproject2024.src
         private float naturalHealTime;
         private float healCounter;
         private int naturalHealAmount;
+        private float boostTime;
+        private float cachedSpeed;
+        private float currentFactor;
 
         private ParticleEffect damageParticle;
 
@@ -50,6 +54,8 @@ namespace csproject2024.src
 
             this.footstepTime = 0;
             this.footstepDelay = 0;
+
+            cachedSpeed = baseSpeed;
 
             naturalHealAmount = 1;
             naturalHealTime = 1f;
@@ -88,6 +94,14 @@ namespace csproject2024.src
             return false;
         }
 
+        public void Boost(float boostTime, float boostFactor)
+        {
+            this.boostTime = 0;
+            this.boostTime += boostTime;
+            cachedSpeed = speed;
+            currentFactor = boostFactor;
+        }
+
         public void RemoveItem(Item item)
         {
             for (int i = 0; i < 4; i++)
@@ -119,6 +133,16 @@ namespace csproject2024.src
 
         public void Update()
         {
+            boostTime -= Globals.ElapsedSeconds;
+
+            if (boostTime <= 0)
+            {
+                speed = cachedSpeed;
+            }
+            else
+            {
+                speed = cachedSpeed * currentFactor;
+            }
 
             if (health <= 0)
             {
@@ -127,6 +151,8 @@ namespace csproject2024.src
                 RoundManager.doSpawn = false;
                 Globals.GameManager.Init();
             }
+
+            Console.WriteLine("speed: "  + speed + "count: " + boostTime);
 
             activeItem = items[activeItemSlot - 1];
 
@@ -158,7 +184,6 @@ namespace csproject2024.src
             Vector2 projectedTilePosition = (new Vector2(position.X-8,position.Y) + InputManager.MoveVector * speed)/16;
 
             Tile projectedStandingTile = level.GetTileAt(projectedTilePosition);
-
             if (projectedStandingTile != null && projectedStandingTile.canWalkOver == true)
             {
                 position += InputManager.MoveVector * speed;
