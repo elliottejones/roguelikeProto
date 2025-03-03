@@ -34,8 +34,6 @@ namespace csproject2024.src
         private int naturalHealAmount;
 
         private float boostTime;
-        private float cachedSpeed;
-        private float currentFactor;
 
         private float damageTime;
 
@@ -58,8 +56,6 @@ namespace csproject2024.src
             this.footstepTime = 0;
             this.footstepDelay = 0;
 
-            cachedSpeed = baseSpeed;
-
             naturalHealAmount = 1;
             naturalHealTime = 1f;
             healCounter = 0f;
@@ -73,7 +69,7 @@ namespace csproject2024.src
             
             activeItemSlot = 1;
 
-            this.GiveItem(Globals.GetItemPreset.Lolipop());
+            this.GiveItem(Globals.GetItemPreset.Glock());
         }
 
         public void DamageBoost(float time)
@@ -97,7 +93,7 @@ namespace csproject2024.src
 
         public bool GiveItem(Item item)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (items[i] is Consumable && items[i].name == item.name)
                 {
@@ -118,16 +114,12 @@ namespace csproject2024.src
 
         public void Boost(float boostTime, float boostFactor)
         {
-            Console.WriteLine("boosted lpayer");
-            this.boostTime = 0;
-            this.boostTime += boostTime;
-            cachedSpeed = speed;
-            currentFactor = boostFactor;
+            this.boostTime = boostTime;
         }
 
         public void RemoveItem(Item item)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 if (items[i] == item)
                 {
@@ -136,6 +128,16 @@ namespace csproject2024.src
                 }
             }
         }
+
+        private void Death()
+        {
+            health = 0;
+            InputManager.mainMenu = true;
+            RoundManager.doSpawn = false;
+            Globals.GameManager.Init();
+            Globals.AudioManager.StopAllSounds();
+        }
+
         private void UpdateHealthBar()
         {
             Globals.ScreenGUI.UpdateAttribute("text", "healthText", $"{health}");
@@ -147,7 +149,7 @@ namespace csproject2024.src
             health -= damage;
 
             Globals.AudioManager.PlaySound("uuh", false);
-            damageParticle.Instantiate(position);    // commented out because it was causing lag
+            damageParticle.Instantiate(position);
 
             Globals.ScreenGUI.damageBorder.Damage(damage);
 
@@ -168,21 +170,18 @@ namespace csproject2024.src
                 Globals.damageBoost = false;
             }
 
-            if (boostTime <= 0)
+            if (boostTime >= 0)
             {
-                speed = cachedSpeed;
+                Globals.speedBoost = true;
             }
             else
             {
-                speed = cachedSpeed * currentFactor;
+                Globals.speedBoost = false;
             }
 
             if (health <= 0)
             {
-                health = 0;
-                InputManager.mainMenu = true;
-                RoundManager.doSpawn = false;
-                Globals.GameManager.Init();
+                Death();
             }
 
             activeItem = items[activeItemSlot - 1];
@@ -211,7 +210,6 @@ namespace csproject2024.src
                 UpdateHealthBar();
             }
 
-
             Vector2 projectedTilePosition = (new Vector2(position.X-8,position.Y) + InputManager.MoveVector * speed)/16;
 
             Tile projectedStandingTile = level.GetTileAt(projectedTilePosition);
@@ -230,6 +228,11 @@ namespace csproject2024.src
             else
             {
                 speed = baseSpeed;
+            }
+
+            if (Globals.speedBoost)
+            {
+                speed = speed * 2;
             }
 
             tilePosition = position / 16;

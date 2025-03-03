@@ -32,7 +32,14 @@ namespace csproject2024.src
                 sounds[soundName].Play();
             }   
         }
-
+        
+        public void StopAllSounds()
+        {
+            foreach (KeyValuePair<string,Sound> s in sounds)
+            {
+                s.Value.Stop();
+            }
+        }
         public void StopSound(string soundName)
         {
             sounds[soundName].Stop(); 
