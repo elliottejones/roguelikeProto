@@ -29,13 +29,11 @@ namespace csproject2024.src
 
             AddItem(Globals.GetItemPreset.Glock(), Vector2.Zero);
             AddItem(Globals.GetItemPreset.Cheese(), new(50,50));
-            AddItem(Globals.GetItemPreset.Cheese(), new(100, 50));
-            AddItem(Globals.GetItemPreset.Cheese(), new(50, 100));
-            AddItem(Globals.GetItemPreset.Cheese(), new(50, -50));
-            AddItem(Globals.GetItemPreset.Stim(), new(-50, 50));
+            AddItem(Globals.GetItemPreset.Piwo(), new(100, 50));
+            AddItem(Globals.GetItemPreset.Medkit(), new(50, 100));
+            AddItem(Globals.GetItemPreset.Chicken(), new(50, -50));
+            AddItem(Globals.GetItemPreset.Chilli(), new(-50, 50));
             AddItem(Globals.GetItemPreset.Stim(), new(-50, -50));
-
-
         }
 
         public void AddItem(Item item, Vector2 position)

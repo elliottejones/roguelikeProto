@@ -64,7 +64,16 @@ namespace csproject2024.src
                 float mobPositionModulus = Globals.Vector2Magnitude(mob.position - position);
                 if (mobPositionModulus <= 10)
                 {
-                    mob.Damage(damage);
+                    int ifBoosted = damage;
+
+                    if (Globals.damageBoost)
+                    {
+
+                        Console.WriteLine("damage is boosted");
+                        ifBoosted *= 2;
+                    }
+
+                    mob.Damage(ifBoosted);
                     this.penetrationCount--;
                 }
 

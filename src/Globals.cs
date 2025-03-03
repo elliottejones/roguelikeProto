@@ -25,13 +25,34 @@ namespace csproject2024.src
 
             public static Consumable Stim()
             {
-                return new Consumable("stim", new(Content.Load<Texture2D>("stim"), Vector2.Zero, "stim"), new(Content.Load<SoundEffect>("nomnomnom")), null, Consumable.ConsumableType.SpeedBoost);
+                return new Consumable("stim", new(Content.Load<Texture2D>("stim"), Vector2.Zero, "stim"), new(Content.Load<SoundEffect>("stab")), null, Consumable.ConsumableType.SpeedBoost);
+            }
+
+            public static Consumable Chilli()
+            {
+                return new Consumable("chilli", new(Content.Load<Texture2D>("chilli"), Vector2.Zero, "chilli"), new(Content.Load<SoundEffect>("nomnomnom")), null, Consumable.ConsumableType.SpeedBoost);
             }
 
             public static Consumable Cheese()
             {
-                return new Consumable("cheese", new(Content.Load<Texture2D>("cheese"), Vector2.Zero, "cheese"), new(Content.Load<SoundEffect>("nomnomnom")), null, Consumable.ConsumableType.Heal);
+                return new Consumable("cheese", new(Content.Load<Texture2D>("cheese"), Vector2.Zero, "cheese"), new(Content.Load<SoundEffect>("nomnomnom")), null, Consumable.ConsumableType.HealQuarter);
             }
+
+            public static Consumable Medkit()
+            {
+                return new Consumable("medkit", new(Content.Load<Texture2D>("medkit"), Vector2.Zero, "medkit"), new(Content.Load<SoundEffect>("heal")), null, Consumable.ConsumableType.Heal);
+            }
+
+            public static Consumable Piwo()
+            {
+                return new Consumable("piwo", new(Content.Load<Texture2D>("piwo"), Vector2.Zero, "piwo"), new(Content.Load<SoundEffect>("drink")), null, Consumable.ConsumableType.DamageBoost);
+            }
+
+            public static Consumable Chicken()
+            {
+                return new Consumable("chicken", new(Content.Load<Texture2D>("chicken"), Vector2.Zero, "chicken"), new(Content.Load<SoundEffect>("nomnomnom")), null, Consumable.ConsumableType.DamageBoost);
+            }
+
         }
 
         public static GameManager GameManager { get; set; }
@@ -52,6 +73,8 @@ namespace csproject2024.src
         public static Player Player { get; set; }
 
         private static double elapsedTime = 0; // Datalog elapsed time
+
+        public static bool damageBoost = false;
 
         public static void Update(GameTime gt)
         {

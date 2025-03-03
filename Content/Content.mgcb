@@ -50,6 +50,12 @@
 /processorParam:TextureFormat=Color
 /build:bear.png
 
+#begin bow.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:bow.mp3
+
 #begin bullet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -86,6 +92,30 @@
 /processorParam:TextureFormat=Color
 /build:cheese.png
 
+#begin chicken.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:chicken.png
+
+#begin chilli.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:chilli.png
+
 #begin crosshair.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -109,6 +139,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:damageborder.png
+
+#begin death.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:death.mp3
+
+#begin drink.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:drink.mp3
 
 #begin footstepGrass.wav
 /importer:WavImporter
@@ -158,6 +200,12 @@
 /processorParam:TextureFormat=Color
 /build:grassoutline.png
 
+#begin heal.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:heal.mp3
+
 #begin hitParticle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -206,6 +254,18 @@
 /processorParam:TextureFormat=Color
 /build:mainmenu.png
 
+#begin medkit.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:medkit.png
+
 #begin muzzleflash.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -226,7 +286,7 @@
 
 #begin pickup.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:pickup.mp3
 
@@ -247,6 +307,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:pigSqueal.wav
+
+#begin piwo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:piwo.png
 
 #begin pop.mp3
 /importer:Mp3Importer
@@ -289,6 +361,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:snow.png
+
+#begin stab.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:stab.mp3
 
 #begin stim.png
 /importer:TextureImporter

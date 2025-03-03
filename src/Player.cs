@@ -32,9 +32,12 @@ namespace csproject2024.src
         private float naturalHealTime;
         private float healCounter;
         private int naturalHealAmount;
+
         private float boostTime;
         private float cachedSpeed;
         private float currentFactor;
+
+        private float damageTime;
 
         private ParticleEffect damageParticle;
 
@@ -73,6 +76,25 @@ namespace csproject2024.src
             this.GiveItem(Globals.GetItemPreset.Lolipop());
         }
 
+        public void DamageBoost(float time)
+        {
+            damageTime = time;
+        }
+
+        public void Heal(int? amount = null, float? fraction = null)
+        {
+            if (amount != null)
+            {
+                health += (int)amount;
+            }
+            else if (fraction != null)
+            {
+                health += (int)(maxHealth * (float)fraction);
+            }
+
+            UpdateHealthBar();
+        }
+
         public bool GiveItem(Item item)
         {
             for (int i = 0; i < 4; i++)
@@ -96,6 +118,7 @@ namespace csproject2024.src
 
         public void Boost(float boostTime, float boostFactor)
         {
+            Console.WriteLine("boosted lpayer");
             this.boostTime = 0;
             this.boostTime += boostTime;
             cachedSpeed = speed;
@@ -134,6 +157,16 @@ namespace csproject2024.src
         public void Update()
         {
             boostTime -= Globals.ElapsedSeconds;
+            damageTime -= Globals.ElapsedSeconds;
+
+            if (damageTime >= 0)
+            {
+                Globals.damageBoost = true;
+            }
+            else
+            {
+                Globals.damageBoost = false;
+            }
 
             if (boostTime <= 0)
             {
@@ -151,8 +184,6 @@ namespace csproject2024.src
                 RoundManager.doSpawn = false;
                 Globals.GameManager.Init();
             }
-
-            Console.WriteLine("speed: "  + speed + "count: " + boostTime);
 
             activeItem = items[activeItemSlot - 1];
 
@@ -249,7 +280,6 @@ namespace csproject2024.src
                 }
             }
         }
-
         public void Draw()
         {
             foreach (Item item in items)

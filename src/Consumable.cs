@@ -5,6 +5,7 @@ using SharpDX.DirectWrite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace csproject2024.src
 
         public enum ConsumableType
         {
-            Heal, SpeedBoost, DamageBoost
+            Heal, SpeedBoost, DamageBoost, HealQuarter
         }
 
         public int StackCount;
@@ -41,12 +42,21 @@ namespace csproject2024.src
                 case (ConsumableType.Heal):
                     Heal();
                     break;
+                case (ConsumableType.HealQuarter):
+                    HealQuarter();
+                    break;
                 case (ConsumableType.SpeedBoost):
                     SpeedBoost();
                     break;
                 case (ConsumableType.DamageBoost):
+                    DamageBoost();
                     break;
             }
+        }
+
+        private void DamageBoost()
+        {
+            Globals.Player.DamageBoost(10);
         }
 
         private void SpeedBoost()
@@ -54,14 +64,14 @@ namespace csproject2024.src
             Globals.Player.Boost(10, 2);
         }
 
-        private void RegenHealth()
-        {
-
-        }
-
         private void Heal()
         {
-            Globals.Player.health = Globals.Player.maxHealth;
+            Globals.Player.Heal(fraction: 1f);
+        }
+
+        private void HealQuarter()
+        {
+            Globals.Player.Heal(fraction: 0.25f);
         }
 
         public override void Use()
@@ -79,7 +89,6 @@ namespace csproject2024.src
                     this.Remove();
                 }
 
-                
             }
             else
             {
