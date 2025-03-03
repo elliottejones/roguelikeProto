@@ -26,6 +26,8 @@ namespace csproject2024.src
 
         public void Update()
         {
+            Globals.RoundNumber = roundNumber;
+
             if (!doSpawn)
             {
                 return;
@@ -37,6 +39,17 @@ namespace csproject2024.src
 
             if (timeRemaining <= 0)
             {
+                newRound();
+                newRound();
+                newRound();
+                newRound();
+                newRound();
+                newRound();
+                newRound();
+                newRound();
+                newRound();
+                newRound();
+                newRound();
                 newRound();
             }
 

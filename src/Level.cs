@@ -27,13 +27,13 @@ namespace csproject2024.src
             droppedItemList = new List<DroppedItem>();
             despawnedDroppedItems = new List<DroppedItem>();
 
-            AddItem(Globals.GetItemPreset.Glock(), Vector2.Zero);
-            AddItem(Globals.GetItemPreset.Cheese(), new(50,50));
-            AddItem(Globals.GetItemPreset.Piwo(), new(100, 50));
-            AddItem(Globals.GetItemPreset.Medkit(), new(50, 100));
-            AddItem(Globals.GetItemPreset.Chicken(), new(50, -50));
-            AddItem(Globals.GetItemPreset.Chilli(), new(-50, 50));
-            AddItem(Globals.GetItemPreset.Stim(), new(-50, -50));
+            AddItem(Globals.GetItemPreset.Lolipop(), Vector2.Zero);
+            AddItem(Globals.GetItemPreset.Cheese(), new(0,15));
+            AddItem(Globals.GetItemPreset.Piwo(), new(0, 30));
+            AddItem(Globals.GetItemPreset.Medkit(), new(0, 45));
+            AddItem(Globals.GetItemPreset.Chicken(), new(0, 60));
+            AddItem(Globals.GetItemPreset.Chilli(), new(0, 75));
+            AddItem(Globals.GetItemPreset.Stim(), new(0, 90));
         }
 
         public void AddItem(Item item, Vector2 position)

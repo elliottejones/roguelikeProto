@@ -75,6 +75,7 @@ namespace csproject2024.src
         private static double elapsedTime = 0; // Datalog elapsed time
 
         public static bool damageBoost = false;
+        public static bool speedBoost = true;
 
         public static void Update(GameTime gt)
         {

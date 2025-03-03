@@ -153,7 +153,7 @@ namespace csproject2024.src
                 if (direction.Length() > 1f)
                 {
                     direction.Normalize();
-                    position += direction * walkspeed * (float)Globals.ElapsedSeconds;
+                    position += direction * (walkspeed + (walkspeed * Globals.RoundNumber * 0.2f)) * (float)Globals.ElapsedSeconds;
                     lastWalkVector = direction;
                 }
                 else
