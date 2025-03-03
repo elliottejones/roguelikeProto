@@ -1,45 +1,554 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controls And Keybinds For Survival Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tahoma', Geneva, sans-serif;
+            background: linear-gradient(to bottom, #87CEEB, #3498db);
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        /* Sky animation with clouds */
+        .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+        
+        /* Sun */
+        .sun {
+            position: fixed;
+            top: 50px;
+            right: 80px;
+            width: 100px;
+            height: 100px;
+            background: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 40px #FFD700;
+            animation: glow 5s ease-in-out infinite alternate;
+            z-index: -1;
+        }
+        
+        /* Birds */
+        .bird {
+            position: absolute;
+            pointer-events: none;
+            font-size: 20px;
+            color: #333;
+            z-index: 1;
+            transform: translateY(0px);
+            animation: fly 20s linear infinite;
+        }
+        
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Main title */
+        h1 {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 3rem;
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            position: relative;
+            animation: fadeIn 1s ease-in, float 4s ease-in-out infinite;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #4CAF50, transparent);
+        }
+        
+        /* Section titles */
+        h2 {
+            font-family: 'Verdana', Geneva, sans-serif;
+            color: #2c3e50;
+            margin: 40px 0 20px;
+            position: relative;
+            padding-left: 15px;
+            font-size: 1.8rem;
+        }
+        
+        h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 80%;
+            width: 5px;
+            background: #4CAF50;
+            border-radius: 5px;
+        }
+        
+        /* Rock panels */
+        .rock-panel {
+            background: linear-gradient(to bottom, #7f8c8d, #4e5a5b);
+            border-radius: 15px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            overflow: hidden;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideUp 0.8s ease-out forwards;
+        }
+        
+        .rock-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+        
+        /* Control buttons */
+        .controls-list {
+            list-style: none;
+        }
+        
+        .control-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .control-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .key-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            height: 40px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-right: 15px;
+            box-shadow: 0 4px 0 #1a252f;
+            padding: 0 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .key-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        }
+        
+        .key-desc {
+            font-family: 'Verdana', Geneva, sans-serif;
+            color: #ecf0f1;
+            font-size: 1.1rem;
+        }
+        
+        /* Growing vines */
+        .vine {
+            position: absolute;
+            width: 2px;
+            background-color: #4CAF50;
+            z-index: 1;
+            animation: growVine 5s ease-out forwards;
+        }
+        
+        .leaf {
+            position: absolute;
+            width: 20px;
+            height: 10px;
+            background-color: #4CAF50;
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(45deg);
+            z-index: 1;
+            animation: growLeaf 1s ease-out forwards;
+            opacity: 0;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #2c3e50;
+            font-size: 0.8rem;
+            position: relative;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 20px #FFD700;
+            }
+            100% {
+                box-shadow: 0 0 60px #FFD700, 0 0 100px rgba(255, 215, 0, 0.5);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes growVine {
+            from {
+                height: 0;
+            }
+            to {
+                height: 100%;
+            }
+        }
+        
+        @keyframes growLeaf {
+            from {
+                transform: scale(0) rotate(45deg);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) rotate(45deg);
+                opacity: 0.9;
+            }
+        }
+        
+        @keyframes fly {
+            0% {
+                left: -50px;
+                top: 100px;
+            }
+            100% {
+                left: calc(100% + 50px);
+                top: 50px;
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .rock-panel {
+                padding: 15px 20px;
+            }
+            
+            .key-box {
+                min-width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+            
+            .key-desc {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1 style="text-align: center;"><span style="font-family:tahoma,geneva,sans-serif;">Controls And Keybinds For Survival Game</span></h1>
-
-    <p>&nbsp;</p>
-
-    <h2 style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;">Game Controls:</span></h2>
-
-    <hr />
-    <ul>
-        <li style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;"><strong>W</strong>: Move Up</span></li>
-        <li style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;"><strong>A</strong>: Move Left</span></li>
-        <li style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;"><strong>S</strong>: Move Down</span></li>
-        <li style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;"><strong>D</strong>: Move right</span></li>
-        <li style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;"><strong>Left Shift</strong>: Sprint</span></li>
-        <li style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;"><strong>Left Mouse</strong>: Attack</span></li>
-    </ul>
-
-    <p style="text-align: justify;">&nbsp;</p>
-
-    <h2 style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;">General Keybinds:</span></h2>
-
-    <hr />
-    <ul>
-        <li style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;">Open This Menu: Alt + K</span></li>
-    </ul>
-
-    <p style="text-align: justify;">&nbsp;</p>
-
-    <h2 style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;">Debug Modes:&nbsp;</span></h2>
-
-    <hr />
-    <ul>
-        <li style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;">Mob Hitboxes: Alt + C</span></li>
-    </ul>
-
-    <p style="text-align: justify;">&nbsp;</p>
-
-    <h6 style="text-align: justify;"><span style="font-family:verdana,geneva,sans-serif;">By Elliott Jones</span></h6>
+    <!-- Sky background with animated elements -->
+    <div class="clouds" id="clouds"></div>
+    <div class="sun"></div>
+    
+    <div class="container">
+        <h1>Controls And Keybinds For Survival Game</h1>
+        
+        <!-- Game Controls Section -->
+        <h2>Game Controls:</h2>
+        <div class="rock-panel" style="animation-delay: 0.2s;">
+            <div class="vine vine1"></div>
+            <ul class="controls-list">
+                <li class="control-item" data-delay="0">
+                    <div class="key-box">W</div>
+                    <span class="key-desc">Move Up</span>
+                </li>
+                <li class="control-item" data-delay="100">
+                    <div class="key-box">A</div>
+                    <span class="key-desc">Move Left</span>
+                </li>
+                <li class="control-item" data-delay="200">
+                    <div class="key-box">S</div>
+                    <span class="key-desc">Move Down</span>
+                </li>
+                <li class="control-item" data-delay="300">
+                    <div class="key-box">D</div>
+                    <span class="key-desc">Move Right</span>
+                </li>
+                <li class="control-item" data-delay="400">
+                    <div class="key-box">Shift</div>
+                    <span class="key-desc">Sprint</span>
+                </li>
+                <li class="control-item" data-delay="500">
+                    <div class="key-box">LMB</div>
+                    <span class="key-desc">Attack</span>
+                </li>
+                <li class="control-item" data-delay="600">
+                    <div class="key-box">Q/E</div>
+                    <span class="key-desc">Switch Hotbar Slot</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- General Keybinds Section -->
+        <h2>General Keybinds:</h2>
+        <div class="rock-panel" style="animation-delay: 0.4s;">
+            <div class="vine vine2"></div>
+            <ul class="controls-list">
+                <li class="control-item" data-delay="700">
+                    <div class="key-box">Alt+K</div>
+                    <span class="key-desc">Open This Menu</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Debug Modes Section -->
+        <h2>Debug Modes:</h2>
+        <div class="rock-panel" style="animation-delay: 0.6s;">
+            <div class="vine vine3"></div>
+            <ul class="controls-list">
+                <li class="control-item" data-delay="800">
+                    <div class="key-box">Alt+C</div>
+                    <span class="key-desc">Mob Hitboxes</span>
+                </li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p>By Elliott Jones</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Create animated clouds
+        function createClouds() {
+            const cloudsContainer = document.getElementById('clouds');
+            const cloudCount = 15;
+            
+            for (let i = 0; i < cloudCount; i++) {
+                // Create multiple cloud bubbles for each cloud
+                const cloudGroup = document.createElement('div');
+                cloudGroup.style.position = 'absolute';
+                cloudGroup.style.left = `${Math.random() * 100}%`;
+                cloudGroup.style.top = `${Math.random() * 100}%`;
+                cloudGroup.style.animation = `float ${20 + Math.random() * 40}s linear infinite`;
+                cloudGroup.style.animationDelay = `-${Math.random() * 40}s`;
+                
+                // Random cloud width for variety
+                const cloudWidth = 50 + Math.random() * 100;
+                
+                // Add 3-7 cloud bubbles per cloud
+                const bubbleCount = 3 + Math.floor(Math.random() * 5);
+                for (let j = 0; j < bubbleCount; j++) {
+                    const bubble = document.createElement('div');
+                    bubble.className = 'cloud';
+                    bubble.style.width = `${cloudWidth * (0.5 + Math.random() * 0.5)}px`;
+                    bubble.style.height = `${cloudWidth * (0.5 + Math.random() * 0.5)}px`;
+                    bubble.style.left = `${j * 20 - 30 + Math.random() * 20}px`;
+                    bubble.style.top = `${Math.random() * 20}px`;
+                    cloudGroup.appendChild(bubble);
+                }
+                
+                cloudsContainer.appendChild(cloudGroup);
+            }
+        }
+        
+        // Create flying birds
+        function createBirds() {
+            const birdCount = 5;
+            const container = document.querySelector('.container');
+            
+            for (let i = 0; i < birdCount; i++) {
+                const bird = document.createElement('div');
+                bird.className = 'bird';
+                bird.innerHTML = '✈'; // Simple bird symbol
+                bird.style.top = `${50 + Math.random() * 200}px`;
+                bird.style.animationDelay = `${Math.random() * 20}s`;
+                document.body.appendChild(bird);
+            }
+        }
+        
+        // Create growing vines and leaves
+        function createVinesAndLeaves() {
+            // Set up vines
+            const vines = document.querySelectorAll('.vine');
+            vines.forEach((vine, index) => {
+                vine.style.left = '10px';
+                vine.style.top = '0';
+                vine.style.animationDelay = `${index * 0.5}s`;
+                
+                // Add leaves to each vine
+                const leafCount = 3 + Math.floor(Math.random() * 4);
+                for (let i = 0; i < leafCount; i++) {
+                    const leaf = document.createElement('div');
+                    leaf.className = 'leaf';
+                    
+                    // Position leaves along the vine
+                    const position = 20 + i * 30 + Math.random() * 10;
+                    leaf.style.left = i % 2 === 0 ? '5px' : '-15px';
+                    leaf.style.top = `${position}%`;
+                    leaf.style.animationDelay = `${index * 0.5 + 2 + i * 0.5}s`;
+                    
+                    // Random rotation for variety
+                    const rotation = i % 2 === 0 ? 45 : -45;
+                    leaf.style.transform = `rotate(${rotation}deg)`;
+                    
+                    vine.appendChild(leaf);
+                }
+            });
+        }
+        
+        // Add animation to control items
+        function animateControls() {
+            const items = document.querySelectorAll('.control-item');
+            items.forEach(item => {
+                const delay = parseInt(item.getAttribute('data-delay'));
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-20px)';
+                
+                setTimeout(() => {
+                    item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }, delay);
+                
+                // Add hover effect
+                item.addEventListener('mouseenter', () => {
+                    const keyBox = item.querySelector('.key-box');
+                    keyBox.style.transform = 'scale(1.1)';
+                    keyBox.style.boxShadow = '0 6px 0 #1a252f';
+                    keyBox.style.transition = 'all 0.3s';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    const keyBox = item.querySelector('.key-box');
+                    keyBox.style.transform = 'scale(1)';
+                    keyBox.style.boxShadow = '0 4px 0 #1a252f';
+                });
+            });
+        }
+        
+        // Add interactive effects
+        function addInteractiveEffects() {
+            const rockPanels = document.querySelectorAll('.rock-panel');
+            
+            rockPanels.forEach(panel => {
+                panel.addEventListener('mouseenter', () => {
+                    panel.style.transform = 'translateY(-5px)';
+                    panel.style.boxShadow = '0 15px 30px rgba(0,0,0,0.3)';
+                    panel.style.transition = 'all 0.3s ease';
+                });
+                
+                panel.addEventListener('mouseleave', () => {
+                    panel.style.transform = 'translateY(0)';
+                    panel.style.boxShadow = '0 10px 20px rgba(0,0,0,0.2)';
+                });
+                
+                // Create sparkle effect on click
+                panel.addEventListener('click', (e) => {
+                    const sparkle = document.createElement('div');
+                    sparkle.style.position = 'absolute';
+                    sparkle.style.width = '5px';
+                    sparkle.style.height = '5px';
+                    sparkle.style.borderRadius = '50%';
+                    sparkle.style.backgroundColor = '#fff';
+                    sparkle.style.left = `${e.offsetX}px`;
+                    sparkle.style.top = `${e.offsetY}px`;
+                    sparkle.style.pointerEvents = 'none';
+                    sparkle.style.animation = 'fadeIn 0.5s ease-out forwards';
+                    
+                    panel.appendChild(sparkle);
+                    
+                    setTimeout(() => {
+                        sparkle.remove();
+                    }, 500);
+                });
+            });
+        }
+        
+        // Initialize all animations and effects
+        document.addEventListener('DOMContentLoaded', () => {
+            createClouds();
+            createBirds();
+            createVinesAndLeaves();
+            animateControls();
+            addInteractiveEffects();
+        });
+    </script>
 </body>
 </html>
