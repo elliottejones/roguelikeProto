@@ -49,7 +49,14 @@ namespace csproject2024.src
             //Console.WriteLine(changeInScrollWheelPosition);
             Globals.camera.cameraZoom -= changeInScrollWheelPosition*0.01f;
 
-            
+            bool isVJustPressed =
+                kb.IsKeyDown(Keys.V) &&
+                !(previousKeyboardState.IsKeyDown(Keys.V));
+
+            if (isVJustPressed)
+            {
+                Globals.Player.DropCurrentItem();
+            }
 
             bool isEnterJustPressed =
                 kb.IsKeyDown(Keys.Enter) &&

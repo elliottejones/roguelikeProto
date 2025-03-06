@@ -12,7 +12,7 @@ namespace csproject2024.src
     internal class DroppedItem
     {
         static Sound pickupSound = new(Globals.Content.Load<SoundEffect>("pickup"));
-
+        public float pickupTime; // Counts down to zero from instantiation, when it reaches zero the item can be picked up
         Texture2D icon;
         Vector2 position; // The center of the icon.
         Item item;
@@ -23,12 +23,14 @@ namespace csproject2024.src
             this.icon = item.icon.texture;
             this.position = position;
             this.item = item;
+            pickupTime = 3f;
         }
 
         public void Update()
         {
+            pickupTime -= Globals.ElapsedSeconds;
             Vector2 distance = Globals.Player.position - this.position;
-            if(Globals.Vector2Magnitude(distance) <= 10)
+            if(Globals.Vector2Magnitude(distance) <= 10 && pickupTime < 0)
             {
                 PickedUp();
             }

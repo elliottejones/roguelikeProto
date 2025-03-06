@@ -144,6 +144,18 @@ namespace csproject2024.src
             Globals.ScreenGUI.UpdateAttribute("width", "healthBar", $"{(int)Math.Round((float)((float)health / (float)maxHealth) * 180)}");
         }
 
+        public void DropCurrentItem()
+        {
+            if (activeItem != null)
+            {
+                Item cloned = activeItem;
+                items[activeItemSlot - 1] = null;
+                activeItem = null;
+                Globals.Level.AddItem(cloned, position);
+            }
+        }
+
+
         public void Damage(int damage)
         {
             health -= damage;
