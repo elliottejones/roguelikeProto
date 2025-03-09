@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace csproject2024.src
 {
     internal class Frame : UIElement
-    {
+    {   // placeholder class, basic UI element
         public Frame(float layerHeight, Vector2 position, string name, Color backgroundColor = new Color(), float backgroundTransparency = 0f, Color borderColor = new Color(), float borderTransparency = 0f, int borderWidth = 0, int width = 10, int height = 10, string text = null, Color textColor = new Color()): base (layerHeight, position, name, backgroundColor, backgroundTransparency, borderColor, borderTransparency, borderWidth, width, height, text, textColor)
         {
             

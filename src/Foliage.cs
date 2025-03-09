@@ -50,7 +50,7 @@ internal class Foliage
         collisionBox = new Rectangle((int)topLeft.X, (int)topLeft.Y, texture.texture.Width, texture.texture.Height-10);
     }
 
-    private float GetLayerHeight(Player player)
+    private float GetLayerHeight(Player player) // Changes the layerheight of the sprite depending on if the player is "behind or in front" of it.
     {
         int foliageY = (int)Math.Floor(Vector2.Transform(drawPosition, Globals.camera.Transform).Y);
         int playerY = (int)Math.Floor(Vector2.Transform(player.position, Globals.camera.Transform).Y);

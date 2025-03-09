@@ -40,17 +40,6 @@ namespace csproject2024.src
             if (timeRemaining <= 0)
             {
                 newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
-                newRound();
             }
 
             if (spawnCounter <= 0)

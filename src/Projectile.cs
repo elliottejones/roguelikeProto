@@ -69,7 +69,7 @@ namespace csproject2024.src
                     if (Globals.damageBoost)
                     {
 
-                        Console.WriteLine("damage is boosted");
+                        //Console.WriteLine("damage is boosted");
                         ifBoosted *= 2;
                     }
 

@@ -19,6 +19,24 @@ namespace csproject2024.src
 
         public void Init()
         {
+            ScreenGUI = null;
+            Camera = null;
+            Level = null;
+            Player = null;
+            Crosshair = new Crosshair();
+            DataLogger = null;
+            AudioManager = null;
+            MobManager = null;
+            RoundManager = null;
+
+            Globals.ScreenGUI = null;
+            Globals.camera = null;
+            Globals.AudioManager = null;
+            Globals.Level = null;
+            Globals.Player = null;
+            Globals.MobManager = null;
+            Globals.GameManager = null;
+
             ScreenGUI = new ScreenGUI();
             Camera = new Camera();
             Level = new Level();

@@ -7,6 +7,7 @@ namespace csproject2024.src
 {
     internal class AStar
     {
+
         public static Tile[,] consideredTiles;
         private Node[,] nodeMap = new Node[32, 32];
         public List<Vector2> checkPoints = new List<Vector2>();
@@ -27,7 +28,7 @@ namespace csproject2024.src
                 int newX = (int)(node.GridX + direction.X);
                 int newY = (int)(node.GridY + direction.Y);
 
-                if (newX >= 0 && newX < nodeMap.GetLength(0) && newY >= 0 && newY < nodeMap.GetLength(1))
+                if (newX >= 0 && newX < nodeMap.GetLength(0) && newY >= 0 && newY < nodeMap.GetLength(1)) // Ensures the node is within the bounds of the considered area
                 {
                     Node neighborNode = nodeMap[newX, newY];
                     if (neighborNode != null && neighborNode.Walkable)
@@ -52,7 +53,7 @@ namespace csproject2024.src
             return 14 * xDistance + 10 * (yDistance - xDistance);
         }
 
-        private void RetracePath(Node startNode, Node endNode)
+        private void RetracePath(Node startNode, Node endNode) // Reads parents of nodes, strarting with the end node, and adds them to the path
         {
             List<Node> path = new List<Node>();
             Node currentNode = endNode;

@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 
 namespace csproject2024.src
 {
-    public class ParticleEffect
+    public class ParticleEffect // Manages all instances of a particle effect
     {
-        private class Particle
+        private class Particle // Datamodel for each individual particle (i love nested classes)
         {
             Vector2 position;
             Vector2 direction;

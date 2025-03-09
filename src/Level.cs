@@ -115,7 +115,7 @@ namespace csproject2024.src
                 }
             }
 
-            AStar.consideredTiles = AStarTiles;
+            AStar.consideredTiles = AStarTiles; // Static matrix for any instance of a pathfinding object to use to move towards the player
 
         }
 

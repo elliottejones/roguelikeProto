@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace csproject2024.src
 {
-    class Item
+    class Item // This is what i call good code
     {
         public static Texture iconBorder = new(Globals.Content.Load<Texture2D>("itemborder"), Vector2.Zero, "itemborder");
         public string name { get; set; }
@@ -45,7 +45,7 @@ namespace csproject2024.src
             }
         }
 
-        public virtual void AddToStack()
+        public virtual void AddToStack() // Is overrided by consumable
         {
             
         }

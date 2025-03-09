@@ -70,6 +70,7 @@ namespace csproject2024.src
             activeItemSlot = 1;
 
             this.GiveItem(Globals.GetItemPreset.Glock());
+
         }
 
         public void DamageBoost(float time)
@@ -77,7 +78,7 @@ namespace csproject2024.src
             damageTime = time;
         }
 
-        public void Heal(int? amount = null, float? fraction = null)
+        public void Heal(int? amount = null, float? fraction = null) // nullable parameters because we want null to be the default value for non assigned parameters
         {
             if (amount != null)
             {
@@ -123,7 +124,7 @@ namespace csproject2024.src
             {
                 if (items[i] == item)
                 {
-                    Console.WriteLine("Removed " + item.name);
+                    //Console.WriteLine("Removed " + item.name);
                     items[i] = null;
                 }
             }
@@ -210,7 +211,7 @@ namespace csproject2024.src
                 if (health >= maxHealth)
                 {
                     health = maxHealth;
-                    Console.WriteLine("set health to " + maxHealth);
+                    //Console.WriteLine("set health to " + maxHealth);
                 }
 
                 UpdateHealthBar();

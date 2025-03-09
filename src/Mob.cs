@@ -71,15 +71,28 @@ namespace csproject2024.src
             {
                 Random rng = new Random();
 
-                int value = rng.Next(100);
+                int value = rng.Next(12);
 
-                if (value == 69)
+                switch (value)
                 {
-                    Globals.Level.AddItem(Globals.GetItemPreset.Stim(), position);
-                }
-                else if (value == 42)
-                {
-                    Globals.Level.AddItem(Globals.GetItemPreset.Cheese(), position);
+                    case 1:
+                        Globals.Level.AddItem(Globals.GetItemPreset.Piwo(), position);
+                        break;
+                    case 2:
+                        Globals.Level.AddItem(Globals.GetItemPreset.Cheese(), position);
+                        break;
+                    case 3:
+                        Globals.Level.AddItem(Globals.GetItemPreset.Stim(), position);
+                        break;
+                    case 4:
+                        Globals.Level.AddItem(Globals.GetItemPreset.Chicken(), position);
+                        break;
+                    case 5:
+                        Globals.Level.AddItem(Globals.GetItemPreset.Chilli(), position);
+                        break;
+                    case 6:
+                        Globals.Level.AddItem(Globals.GetItemPreset.Medkit(), position);
+                        break;
                 }
 
                 this.despawned = true;

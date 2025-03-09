@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controls And Keybinds For Survival Game</title>
+    <title>Controls And Keybinds</title>
     <style>
         * {
             margin: 0;
@@ -265,7 +265,7 @@
                 height: 0;
             }
             to {
-                height: 100%;
+                height: 0;
             }
         }
         
@@ -350,10 +350,6 @@
                     <div class="key-box">D</div>
                     <span class="key-desc">Move Right</span>
                 </li>
-                <li class="control-item" data-delay="400">
-                    <div class="key-box">Shift</div>
-                    <span class="key-desc">Sprint</span>
-                </li>
                 <li class="control-item" data-delay="500">
                     <div class="key-box">LMB</div>
                     <span class="key-desc">Attack</span>
@@ -428,50 +424,7 @@
             }
         }
         
-        // Create flying birds
-        function createBirds() {
-            const birdCount = 5;
-            const container = document.querySelector('.container');
-            
-            for (let i = 0; i < birdCount; i++) {
-                const bird = document.createElement('div');
-                bird.className = 'bird';
-                bird.innerHTML = '✈'; // Simple bird symbol
-                bird.style.top = `${50 + Math.random() * 200}px`;
-                bird.style.animationDelay = `${Math.random() * 20}s`;
-                document.body.appendChild(bird);
-            }
-        }
-        
-        // Create growing vines and leaves
-        function createVinesAndLeaves() {
-            // Set up vines
-            const vines = document.querySelectorAll('.vine');
-            vines.forEach((vine, index) => {
-                vine.style.left = '10px';
-                vine.style.top = '0';
-                vine.style.animationDelay = `${index * 0.5}s`;
-                
-                // Add leaves to each vine
-                const leafCount = 3 + Math.floor(Math.random() * 4);
-                for (let i = 0; i < leafCount; i++) {
-                    const leaf = document.createElement('div');
-                    leaf.className = 'leaf';
-                    
-                    // Position leaves along the vine
-                    const position = 20 + i * 30 + Math.random() * 10;
-                    leaf.style.left = i % 2 === 0 ? '5px' : '-15px';
-                    leaf.style.top = `${position}%`;
-                    leaf.style.animationDelay = `${index * 0.5 + 2 + i * 0.5}s`;
-                    
-                    // Random rotation for variety
-                    const rotation = i % 2 === 0 ? 45 : -45;
-                    leaf.style.transform = `rotate(${rotation}deg)`;
-                    
-                    vine.appendChild(leaf);
-                }
-            });
-        }
+ 
         
         // Add animation to control items
         function animateControls() {
@@ -544,8 +497,6 @@
         // Initialize all animations and effects
         document.addEventListener('DOMContentLoaded', () => {
             createClouds();
-            createBirds();
-            createVinesAndLeaves();
             animateControls();
             addInteractiveEffects();
         });
