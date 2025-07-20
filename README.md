@@ -1,6 +1,11 @@
 # The Rec
 
-An almost finished roguelike game for my Computer Science A-level project.
+# Update 20th July:
+I finished the game a few weeks before deadline, I had plenty of time to finish my write-up and do some final bug fixes!
+I scored 70/77, which was the second highest in my college!
+
+# About:
+
 Made using the Monogame framework - an open source implementation of microsoft's depreceated XNA framework.
 
 Named after a real park that is only slightly less deadly than this game.
